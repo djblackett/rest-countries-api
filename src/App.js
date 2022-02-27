@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, {useState} from 'react';
+import CountryCard from "./components/CountryCard";
+import CountryCardDetails from "./components/CountryCardDetails";
+import {ThemeProvider} from "styled-components";
+import { GlobalStyles } from "./components/globalStyles";
+import { lightTheme, darkTheme } from "./components/Themes"
+
+
+
 
 function App() {
+
+const [theme, setTheme] = useState('light');
+  const themeToggler = () => {
+    theme === 'light' ? setTheme('dark') : setTheme('light')
+}
+
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+      <>
+      <GlobalStyles/>
+      <div className="App">
+      <button onClick={themeToggler}>Switch Theme</button>
+        // country cards in a grid -- make a country card component and a redux
+        slice to control the information flow
+        <CountryCard />
+        <CountryCardDetails/>
+      </div>
+      </>
+    </ThemeProvider>
   );
 }
 
 export default App;
+
+
+
+
