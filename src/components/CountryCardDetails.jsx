@@ -1,17 +1,26 @@
 import React from "react";
 import styled from "styled-components";
-import { country } from "./restSampleData";
+// import { country } from "./restSampleData";
+import { countries } from "./countries";
+
+const country = countries[0];
 
 const Container = styled.div`
   display: grid;
   grid-template: 1fr / 1fr 1fr;
-  background-color: ${({ theme }) => theme.background};
+  background-color: ${({ theme }) => theme.body};
+  font-size: 16px;
 `;
 
 const Image = styled.img`
-  src: url({country.flags[1]});
-  height: 300px;
-  width: 500px;
+  /* src: url(${country.flags.png}); */
+  height: 320px;
+  width: 640px;
+  display: block;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: url(${country.flags.svg}) no-repeat;
+  /* padding-left: 500px; Equal to width of new image */
 `;
 
 const InfoContainer = styled.section`
@@ -62,10 +71,10 @@ const Footer = styled.div`
 `;
 
 const BorderCountry = styled.p`
-  background-color: grey;
+  background-color: ${({ theme }) => theme.background};
   width: 50px;
   margin-left: 5px;
-  color: black;
+  text-align: center;
 `;
 
 const BorderCountryContainer = styled.div`
@@ -80,11 +89,13 @@ function CountryCardDetails() {
     <Container>
       <Image />
       <InfoContainer>
-        <Header>{country.name}</Header>
+        <Header>{country.name.common}</Header>
         <InfoPane>
           <InfoEntry>
             <InfoSpan>Native Name: </InfoSpan>
-            <InfoText>{country.name}</InfoText>
+            <InfoText>
+              {Object.values(country.name.nativeName)[0].common}
+            </InfoText>
           </InfoEntry>
           <InfoEntry>
             <InfoSpan>Population: </InfoSpan>
@@ -96,7 +107,7 @@ function CountryCardDetails() {
           </InfoEntry>
           <InfoEntry>
             <InfoSpan>Sub Region: </InfoSpan>
-            <InfoText>{}</InfoText>
+            <InfoText>{country.subregion}</InfoText>
           </InfoEntry>
           <InfoEntry>
             <InfoSpan>Capital: </InfoSpan>
@@ -106,26 +117,26 @@ function CountryCardDetails() {
         <InfoPane>
           <InfoEntry>
             <InfoSpan>Top Level Domain: </InfoSpan>
-            <InfoText>{country.topLevelDomain[0]}</InfoText>
+            <InfoText>{country.tld[0]}</InfoText>
           </InfoEntry>
           <InfoEntry>
             <InfoSpan>Currencies: </InfoSpan>
             <InfoText>
-              {country.currencies.map((x) => x.name).join(",")}
+              {Object.values(country.currencies)
+                .map((x) => x.name)
+                .join(",")}
             </InfoText>
           </InfoEntry>
           <InfoEntry>
             <InfoSpan>Languages: </InfoSpan>
-            <InfoText>
-              {country.languages.map((x) => x.name).join(",")}
-            </InfoText>
+            <InfoText>{Object.values(country.languages).join(",")}</InfoText>
           </InfoEntry>
         </InfoPane>
         <Footer>
           <InfoSpan>Border Countries: </InfoSpan>
           <BorderCountryContainer>
             {country.borders.map((x) => {
-              return <BorderCountry> {x} </BorderCountry>;
+              return <BorderCountry key={"border-" + x}> {x} </BorderCountry>;
             })}
           </BorderCountryContainer>
         </Footer>

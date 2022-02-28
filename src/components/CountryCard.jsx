@@ -1,18 +1,31 @@
 import React from "react";
 import styled from "styled-components";
-import { country } from "./restSampleData";
+// import { country } from "./restSampleData";
+// import { countries } from "./countries";
+
+// const country = countries[3];
 
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 250px;
   background-color: ${({ theme }) => theme.background};
+  /* background-color: black; */
+  /* box-shadow: 2px 2px 5px 5px; */
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
 `;
 
-const Image = styled.img`
-  src: url({country.flags[1]});
+const Image = styled.div`
   width: 250px;
-  aspect-ratio: calc(16 / 9);
+  height: 150px;
+  border: none;
+  outline: none;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const CardInfoWrapper = styled.section`
@@ -45,12 +58,25 @@ const InfoEntry = styled.div`
   margin: 5px;
 `;
 
-function CountryCard() {
+function CountryCard(props) {
+  const country = props.country;
+
+  const imgStyle = {
+    width: "252px",
+    height: "152px",
+    // aspectRatio: "calc(5/3)",
+    border: "none",
+    outline: "none",
+    borderImageWidth: "0",
+  };
+
   return (
     <CardContainer>
-      <Image></Image>
+      <Image>
+        <img src={country.flags.png} style={imgStyle} />
+      </Image>
       <CardInfoWrapper>
-        <CountryName>{country.name}</CountryName>
+        <CountryName>{country.name.common}</CountryName>
         <InfoEntry>
           <InfoSpan>Population: </InfoSpan>
           <InfoText>{country.population}</InfoText>
