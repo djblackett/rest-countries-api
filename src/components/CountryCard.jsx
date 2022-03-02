@@ -11,10 +11,13 @@ const CardContainer = styled.div`
   width: 250px;
   background-color: ${({ theme }) => theme.background};
   /* background-color: black; */
-  /* box-shadow: 2px 2px 5px 5px; */
+  /* box-shadow: 2px 2px 2px 2px darkgray; */
+  /* filter: drop-shadow(10px 10px 4px #4444dd); */
   border: none;
   border-radius: 10px;
   overflow: hidden;
+  color: ${({ theme }) => theme.text};
+  text-decoration: none;
 `;
 
 const Image = styled.div`
