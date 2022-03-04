@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-// import { country } from "./restSampleData";
 import { countries } from "./countries";
+import { useSelector } from "react-redux";
 import {
   Routes,
   Route,
@@ -12,14 +12,13 @@ import {
   useParams,
 } from "react-router-dom";
 import { Dialog } from "@reach/dialog";
-// import "@reach/dialog/styles.css";
-import { getCountryByName } from "../App";
-
-// const country = countries[0];
+import { string } from "prop-types";
+import { selectCountries } from "../countriesSlice";
+// import { getCountryByName, getCountryNameByCca3 } from "../App";
 
 const Container = styled.div`
   display: grid;
-  grid-template: 1fr / 1fr 1fr;
+  grid-template: 200px 1fr / 1fr 1fr;
   background-color: ${({ theme }) => theme.body};
   font-size: 16px;
 `;
@@ -30,7 +29,6 @@ const Image = styled.div`
   display: block;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  /* padding-left: 500px; Equal to width of new image */
 `;
 
 const InfoContainer = styled.section`
@@ -84,6 +82,7 @@ const BorderCountry = styled.p`
   width: 50px;
   margin-left: 5px;
   text-align: center;
+  touch-action: none;
 `;
 
 const BorderCountryContainer = styled.div`
@@ -93,16 +92,40 @@ const BorderCountryContainer = styled.div`
   justify-content: flex-start;
 `;
 
+const BackButton = styled.button`
+  width: 100px;
+  height: 75px;
+  grid-area: 1 / 1 / 2 / 3;
+`;
+
 function CountryCardDetails(props) {
   let navigate = useNavigate();
   let { id } = useParams();
   let buttonRef = React.useRef < HTMLButtonElement > null;
+  const countries = useSelector(selectCountries);
+  console.log(id);
+
+  function getCountryByName(id) {
+    return countries.find((country) => country.name === id);
+  }
+
+  // const [country, setCountry] = useState(props.getCountryByName(id));
 
   let country = getCountryByName(id);
   console.log(country);
 
   function onDismiss() {
     navigate(-1);
+  }
+
+  function handleClick(e) {
+    console.log(e);
+    console.log(e.target);
+    let text = e.target.textContent;
+    console.log(text);
+    let countryName = props.getCountryNameByCioc(text);
+    console.log(countryName);
+    navigate(`/${countryName}`);
   }
 
   const imgStyles = {
@@ -113,76 +136,89 @@ function CountryCardDetails(props) {
     src: "url(${country.flags.png}) no-repeat",
   };
 
-  return (
-    <Dialog
-      aria-labelledby="label"
-      onDismiss={onDismiss}
-      initialFocusRef={buttonRef}
-      style={{ width: "100%" }}
-    >
-      <Container>
-        <Image>
-          <img style={imgStyles} src={country.flags.png} />
-        </Image>
-        <InfoContainer>
-          <Header>{country.name.common}</Header>
-          <InfoPane>
-            <InfoEntry>
-              <InfoSpan>Native Name: </InfoSpan>
-              <InfoText>
-                {Object.values(country.name.nativeName)[0].common}
-              </InfoText>
-            </InfoEntry>
-            <InfoEntry>
-              <InfoSpan>Population: </InfoSpan>
-              <InfoText>{country.population}</InfoText>
-            </InfoEntry>
-            <InfoEntry>
-              <InfoSpan>Region: </InfoSpan>
-              <InfoText>{country.region}</InfoText>
-            </InfoEntry>
-            <InfoEntry>
-              <InfoSpan>Sub Region: </InfoSpan>
-              <InfoText>{country.subregion}</InfoText>
-            </InfoEntry>
-            <InfoEntry>
-              <InfoSpan>Capital: </InfoSpan>
-              <InfoText>{country.capital}</InfoText>
-            </InfoEntry>
-          </InfoPane>
-          <InfoPane>
-            <InfoEntry>
-              <InfoSpan>Top Level Domain: </InfoSpan>
-              <InfoText>{country.tld[0]}</InfoText>
-            </InfoEntry>
-            <InfoEntry>
-              <InfoSpan>Currencies: </InfoSpan>
-              <InfoText>
-                {Object.values(country.currencies)
-                  .map((x) => x.name)
-                  .join(",")}
-              </InfoText>
-            </InfoEntry>
-            <InfoEntry>
-              <InfoSpan>Languages: </InfoSpan>
-              <InfoText>{Object.values(country.languages).join(",")}</InfoText>
-            </InfoEntry>
-          </InfoPane>
-          <Footer>
-            <InfoSpan>Border Countries: </InfoSpan>
-            <BorderCountryContainer>
-              {country.borders &&
-                country.borders.map((x) => {
-                  return (
-                    <BorderCountry key={"border-" + x}> {x} </BorderCountry>
-                  );
-                })}
-            </BorderCountryContainer>
-          </Footer>
-        </InfoContainer>
-      </Container>
-    </Dialog>
-  );
+  if (country) {
+    return (
+      <Dialog
+        aria-labelledby="label"
+        onDismiss={onDismiss}
+        initialFocusRef={buttonRef}
+        style={{ width: "100vw", height: "100vh" }}
+      >
+        <Container>
+          <BackButton onClick={onDismiss}>Back</BackButton>
+          <Image>
+            <img style={imgStyles} src={country.flags.png} />
+          </Image>
+          <InfoContainer>
+            <Header>{country.name.common}</Header>
+            <InfoPane>
+              <InfoEntry>
+                <InfoSpan>Native Name: </InfoSpan>
+                <InfoText>{country.nativeName}</InfoText>
+              </InfoEntry>
+              <InfoEntry>
+                <InfoSpan>Population: </InfoSpan>
+                <InfoText>{country.population}</InfoText>
+              </InfoEntry>
+              <InfoEntry>
+                <InfoSpan>Region: </InfoSpan>
+                <InfoText>{country.region}</InfoText>
+              </InfoEntry>
+              <InfoEntry>
+                <InfoSpan>Sub Region: </InfoSpan>
+                <InfoText>{country.subregion}</InfoText>
+              </InfoEntry>
+              <InfoEntry>
+                <InfoSpan>Capital: </InfoSpan>
+                <InfoText>{country.capital}</InfoText>
+              </InfoEntry>
+            </InfoPane>
+            <InfoPane>
+              <InfoEntry>
+                <InfoSpan>Top Level Domain: </InfoSpan>
+                <InfoText>{country.tld}</InfoText>
+              </InfoEntry>
+              <InfoEntry>
+                <InfoSpan>Currencies: </InfoSpan>
+                <InfoText>
+                  {Object.values(country.currencies)
+                    .map((x) => x.name)
+                    .join(",")}
+                </InfoText>
+              </InfoEntry>
+              <InfoEntry>
+                <InfoSpan>Languages: </InfoSpan>
+                <InfoText>
+                  {Object.values(country.languages).join(",")}
+                </InfoText>
+              </InfoEntry>
+            </InfoPane>
+            <Footer>
+              <InfoSpan>Border Countries: </InfoSpan>
+              <BorderCountries country={country} handleClick={handleClick} />
+            </Footer>
+          </InfoContainer>
+        </Container>
+      </Dialog>
+    );
+  } else {
+    return <h1>Cannot find particular country</h1>;
+  }
 }
 
 export default CountryCardDetails;
+
+function BorderCountries(props) {
+  return (
+    <BorderCountryContainer>
+      {props.country.borders &&
+        props.country.borders.map((x) => {
+          return (
+            <BorderCountry key={"border-" + x} onClick={props.handleClick}>
+              {x}
+            </BorderCountry>
+          );
+        })}
+    </BorderCountryContainer>
+  );
+}

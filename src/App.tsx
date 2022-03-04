@@ -1,6 +1,6 @@
 import "./App.css";
-import React, { useState } from "react";
-import CountryCard from "./components/CountryCard";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import CountryCardDetails from "./components/CountryCardDetails";
 import styled, { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./components/globalStyles";
@@ -9,19 +9,27 @@ import { countries } from "./components/countries";
 import CountriesHeader from "./components/CountriesHeader";
 import {
   Outlet,
-  Link,
   useLocation,
   useNavigate,
-  useParams,
+  useSearchParams,
   Routes,
   Route,
 } from "react-router-dom";
 import { Dialog } from "@reach/dialog";
 import "@reach/dialog/styles.css";
+import { getCountries } from "./countriesSlice";
+import { CountryGrid } from "./components/CountryGrid";
+import { NoMatch } from "./NoMatch";
+import {
+  CountryGridContainer,
+  InputContainer,
+  Input,
+  SearchFilterContainer,
+} from "./css/AppStyles";
 
-export function getCountryByName(id: string) {
-  return countryList.find((country) => country.name.common === id);
-}
+// const countryList = countries.slice(0, 12);
+
+const countryList = countries;
 
 const magnifyingGlass = (
   <svg
@@ -49,54 +57,6 @@ const magnifyingGlass = (
   </svg>
 );
 
-const CountryGridContainer = styled.div`
-  margin: 50px;
-  display: grid;
-
-  gap: 50px;
-  /* padding: 25px; */
-  justify-items: center;
-  justify-content: center;
-  text-decoration: none;
-
-  @media (min-width: 600px) {
-    grid-template: repeat(3, 1fr) / repeat(2, 250px);
-  }
-  @media (min-width: 900px) {
-    grid-template: repeat(3, 1fr) / repeat(3, 250px);
-  }
-  @media (min-width: 1200px) {
-    grid-template: repeat(3, 1fr) / repeat(4, 250px);
-  }
-`;
-
-const InputContainer = styled.div`
-  background: ${({ theme }) => theme.background};
-  height: 70px;
-  width: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Input = styled.input.attrs({
-  type: "text",
-  placeholder: "Search for a country",
-})`
-  background-color: transparent;
-  border: none;
-  outline: none;
-  color: ${({ theme }) => theme.text};
-`;
-
-const SearchFilterContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 50px;
-`;
-
-const countryList = countries.slice(0, 12);
-
 function App() {
   let location = useLocation();
 
@@ -104,11 +64,31 @@ function App() {
   // the gallery links was clicked. If it's there, use it as the location for
   // the <Routes> so we show the gallery in the background, behind the modal.
   let state = location.state as { backgroundLocation?: Location };
-
+  const dispatch = useDispatch();
+  // const countries = useSelector(selectCountries);
   const [theme, setTheme] = useState("light");
+  let [searchParams, setSearchParams] = useSearchParams();
   const themeToggler = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
   };
+
+  useEffect(() => {
+    dispatch(getCountries());
+  }, []);
+
+  function getCountryNameByCioc(text: string) {
+    const countryToFind = countries.find(
+      (country: any) => country.cioc === text
+    );
+    console.log(countryToFind);
+    if (countryToFind) {
+      return countryToFind.name.common;
+    }
+  }
+
+  function getCountryByName(id: string) {
+    return countries.find((country: any) => country.name === id);
+  }
 
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
@@ -118,7 +98,17 @@ function App() {
         <SearchFilterContainer>
           <InputContainer>
             {magnifyingGlass}
-            <Input />
+            <Input
+              value={searchParams.get("filter") || ""}
+              onChange={(event) => {
+                let filter = event.target.value;
+                if (filter) {
+                  setSearchParams({ filter });
+                } else {
+                  setSearchParams({});
+                }
+              }}
+            />
           </InputContainer>
         </SearchFilterContainer>
 
@@ -126,69 +116,40 @@ function App() {
 
         <Routes location={state?.backgroundLocation || location}>
           {/* <Route path="/" element={<Layout />}> */}
-          <Route path="/" element={<CountryGrid />}>
-            {/* </Route> */}
-            <Route path="/:id" element={<DetailsView />} />
-            <Route path="*" element={<NoMatch />} />
-          </Route>
+          <Route path="/" element={<CountryGrid />} />
+          {/* </Route> */}
+          <Route
+            path="/:id"
+            element={
+              <CountryCardDetails
+                getByCioc={getCountryNameByCioc}
+                // getCountryByName={getCountryByName}
+              />
+            }
+          />
+          {/* <Route path="/:id" element={<DetailsView />} /> */}
+          <Route path="*" element={<NoMatch />} />
+          {/* </Route> */}
         </Routes>
 
         {/* Show the modal when a `backgroundLocation` is set */}
         {state?.backgroundLocation && (
           <Routes>
-            <Route path="/:id" element={<CountryCardDetails />} />
+            <Route
+              path="/:id"
+              element={
+                <CountryCardDetails
+                  getByCioc={getCountryNameByCioc}
+                  // getCountryByName={getCountryByName}
+                />
+              }
+            />
           </Routes>
         )}
         <Outlet />
       </div>
     </ThemeProvider>
   );
-}
-
-export function CountryGrid() {
-  let location = useLocation();
-  return (
-    <CountryGridContainer>
-      {countryList.map((country) => {
-        return (
-          <Link
-            key={country.name.common}
-            to={`/${country.name.common}`}
-            style={{ textDecoration: "none" }}
-            // This is the trick! Set the `backgroundLocation` in location state
-            // so that when we open the modal we still see the current page in
-            // the background.
-            state={{ backgroundLocation: location }}
-          >
-            <CountryCard country={country} key={country.name.common} />
-          </Link>
-        );
-      })}
-    </CountryGridContainer>
-  );
-}
-
-export function NoMatch() {
-  return (
-    <div>
-      <h2>Nothing to see here!</h2>
-      <p>
-        <Link to="/">Go to the home page</Link>
-      </p>
-    </div>
-  );
-}
-
-export function DetailsView() {
-  let { id } = useParams<"id">();
-  let countryDetail = null;
-
-  if (id) {
-    countryDetail = getCountryByName(id);
-  }
-  if (!countryDetail) return <div>Country not found</div>;
-
-  return <CountryCardDetails country={countryDetail} />;
 }
 
 export default App;

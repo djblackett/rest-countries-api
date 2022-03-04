@@ -79,7 +79,7 @@ function CountryCard(props) {
         <img src={country.flags.png} style={imgStyle} />
       </Image>
       <CardInfoWrapper>
-        <CountryName>{country.name.common}</CountryName>
+        <CountryName>{country.name}</CountryName>
         <InfoEntry>
           <InfoSpan>Population: </InfoSpan>
           <InfoText>{country.population}</InfoText>

@@ -12,6 +12,8 @@ const Header = styled.nav`
   background-color: ${({ theme }) => theme.background};
   padding: 0 20px;
   box-sizing: border-box;
+  position: fixed;
+  /* margin-bottom: 100px; */
 `;
 
 const Button = styled.button`
