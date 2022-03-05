@@ -1,18 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-// import { country } from "./restSampleData";
-// import { countries } from "./countries";
 
-// const country = countries[3];
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 250px;
   background-color: ${({ theme }) => theme.background};
-  /* background-color: black; */
-  /* box-shadow: 2px 2px 2px 2px darkgray; */
-  /* filter: drop-shadow(10px 10px 4px #4444dd); */
   border: none;
   border-radius: 10px;
   overflow: hidden;
@@ -67,7 +64,6 @@ function CountryCard(props) {
   const imgStyle = {
     width: "252px",
     height: "152px",
-    // aspectRatio: "calc(5/3)",
     border: "none",
     outline: "none",
     borderImageWidth: "0",
@@ -82,7 +78,7 @@ function CountryCard(props) {
         <CountryName>{country.name}</CountryName>
         <InfoEntry>
           <InfoSpan>Population: </InfoSpan>
-          <InfoText>{country.population}</InfoText>
+          <InfoText>{numberWithCommas(country.population)}</InfoText>
         </InfoEntry>
         <InfoEntry>
           <InfoSpan>Region: </InfoSpan>

@@ -1,5 +1,6 @@
 import React from "react";
-import styled from 'styled-components';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Header = styled.nav`
   width: 100%;
@@ -13,7 +14,8 @@ const Header = styled.nav`
   padding: 0 20px;
   box-sizing: border-box;
   position: fixed;
-  /* margin-bottom: 100px; */
+  color: ${({ theme }) => theme.text};
+  box-shadow: 2px 2px 2px black;
 `;
 
 const Button = styled.button`
@@ -33,7 +35,9 @@ const Button = styled.button`
 function CountriesHeader(props) {
   return (
     <Header>
-      <p>Where in the world?</p>
+      <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+        <p>Where in the world?</p>
+      </Link>
       <Button onClick={props.themeToggler}>
         <ion-icon name="moon-outline"></ion-icon>
         <p>Dark Mode</p>
