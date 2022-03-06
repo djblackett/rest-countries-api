@@ -15,6 +15,7 @@ const CardContainer = styled.div`
   overflow: hidden;
   color: ${({ theme }) => theme.text};
   text-decoration: none;
+  filter: drop-shadow(3px 3px 3px black);
 `;
 
 const Image = styled.div`

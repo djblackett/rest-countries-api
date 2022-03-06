@@ -6,8 +6,31 @@ export const RegionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  align-items: flex-start;
-  margin: 0 75px;
+  align-items: flex-end;
+  /* margin: 0 75px; */
+  grid-area: 1 / 3 / 2 / 5;
+  align-self: flex-start;
+  justify-self: end;
+  text-align: end;
+  font-size: 18px;
+  font-weight: bold;
+  filter: drop-shadow(3px 3px 3px black);
+`;
+
+const DropDown = styled.select.attrs({
+  name: "region",
+  id: "region",
+  defaultValue: "All",
+})`
+  width: 200px;
+  font-size: 18px;
+  background-color: ${({theme}) => theme.background};
+  color: ${({theme}) => theme.text};
+  border: none;
+  border-radius: 6px;
+  height: 50px;
+  padding: 0 10px;
+  outline: none;
 `;
 
 function RegionDropDown() {
@@ -16,7 +39,7 @@ function RegionDropDown() {
   function handleChange(event) {
     let region = event.target.value;
 
-    if (region && region !== "All") {
+    if (region && region !== "Filter by Region") {
       setSearchParams({ region });
     } else {
       setSearchParams({});
@@ -25,21 +48,16 @@ function RegionDropDown() {
 
   return (
     <RegionWrapper>
-      <label htmlFor="region">Choose a region:</label>
+      {/* <label htmlFor="region">Choose a region:</label> */}
 
-      <select
-        name="region"
-        id="region"
-        onChange={handleChange}
-        defaultValue="All"
-      >
-        <option value="All">All</option>
+      <DropDown onChange={handleChange}>
+        <option value="Filter by Region">Filter by Region</option>
         <option value="Africa">Africa</option>
         <option value="Americas">Americas</option>
         <option value="Asia">Asia</option>
         <option value="Europe">Europe</option>
         <option value="Oceania">Oceania</option>
-      </select>
+      </DropDown>
     </RegionWrapper>
   );
 }

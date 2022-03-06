@@ -2,22 +2,21 @@ import styled from "styled-components";
 
 export const CountryGridContainer = styled.div`
   margin: 50px;
+  margin-top: 100px;
   display: grid;
-
   gap: 50px;
-  /* padding: 25px; */
-  justify-items: center;
-  justify-content: center;
   text-decoration: none;
 
   @media (min-width: 600px) {
-    grid-template: repeat(3, 1fr) / repeat(2, 250px);
+    grid-template: 100px repeat(3, 1fr) / repeat(2, 250px);
   }
   @media (min-width: 900px) {
-    grid-template: repeat(3, 1fr) / repeat(3, 250px);
+    grid-template: 100px repeat(3, 1fr) / repeat(3, 250px);
   }
   @media (min-width: 1200px) {
-    grid-template: repeat(3, 1fr) / repeat(4, 250px);
+    grid-template: 100px repeat(3, 1fr) / repeat(4, 250px);
+    margin-left: 220px;
+    margin-right: 220px;
   }
 `;
 
@@ -33,21 +32,30 @@ export const SearchAndFilter = styled.div`
 
 export const InputContainer = styled.div`
   background: ${({ theme }) => theme.background};
-  height: 70px;
-  width: 250px;
+  color: ${({ theme }) => theme.text};
+  border-radius: 6px;
+  height: 50px;
+  width: 350px;
+  padding-left: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-self: start;
   align-items: center;
+  grid-area: 1 / 1 / 2 / 3;
+  filter: drop-shadow(3px 3px 3px black);
 `;
 
 export const Input = styled.input.attrs({
   type: "text",
-  placeholder: "Search for a country",
+  placeholder: "Search for a country...",
 })`
   background-color: transparent;
   border: none;
   outline: none;
   color: ${({ theme }) => theme.text};
+  margin-left: 20px;
+  height: 40px;
+  font-size: 20px;
 `;
 
 export const SearchFilterContainer = styled.div`
@@ -63,6 +71,7 @@ export const magnifyingGlass = (
     className="ionicon"
     viewBox="0 0 512 512"
     heigh="50px"
+    width="50px"
   >
     <title>Search</title>
     <path

@@ -37,9 +37,9 @@ export function CountryGrid() {
 
   return (
     <>
-      <SearchAndFilter>
+      <CountryGridContainer>
         <InputContainer>
-          <IonIcon name="search-circle-outline"></IonIcon>
+          <IonIcon name="search-circle-outline" size="large"></IonIcon>
           <Input
             value={searchParams.get("filter") || ""}
             onChange={(event) => {
@@ -53,8 +53,7 @@ export function CountryGrid() {
           />
         </InputContainer>
         <RegionDropDown />
-      </SearchAndFilter>
-      <CountryGridContainer>
+
         {countries
           .filter((country: any) => {
             let filter = searchParams.get("filter");

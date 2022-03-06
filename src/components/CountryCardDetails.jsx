@@ -14,6 +14,7 @@ import {
   InfoEntry,
   Footer,
   BackButton,
+  BorderSpan,
 } from "../css/CountryCardDetailsStyles";
 import { BorderCountries } from "./BorderCountries";
 
@@ -57,14 +58,12 @@ function CountryCardDetails(props) {
   function handleClick(e) {
     let text = e.target.textContent;
     console.log("handleClick text content -> " + text);
-    // let countryName = getCountryNameByCioc(text);
-    // let countryName = getCountryByName(text);
     navigate(`/${text}`);
   }
 
   const imgStyles = {
-    height: "320px",
-    width: "640px",
+    height: "300px",
+    width: "500px",
     display: "block",
     boxSizing: "border-box",
     src: "url(${country.flags.png}) no-repeat",
@@ -79,7 +78,10 @@ function CountryCardDetails(props) {
       //   style={{ width: "100vw", height: "100vh" }}
       // >
       <Container>
-        <BackButton onClick={onDismiss}>Back</BackButton>
+        <BackButton onClick={onDismiss}>
+          <ion-icon name="arrow-back-outline"></ion-icon>
+          <p>Back</p>
+        </BackButton>
         <Image>
           <img style={imgStyles} src={country.flags.png} />
         </Image>
@@ -128,7 +130,7 @@ function CountryCardDetails(props) {
             </InfoEntry>
           </InfoPane>
           <Footer>
-            <InfoSpan>Border Countries: </InfoSpan>
+            <BorderSpan>Border Countries: </BorderSpan>
             <BorderCountries country={country} handleClick={handleClick} />
           </Footer>
         </InfoContainer>

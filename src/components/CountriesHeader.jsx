@@ -15,7 +15,8 @@ const Header = styled.nav`
   box-sizing: border-box;
   position: fixed;
   color: ${({ theme }) => theme.text};
-  box-shadow: 2px 2px 2px black;
+  filter: drop-shadow(3px 3px 3px black);
+  z-index: 5;
 `;
 
 const Button = styled.button`
