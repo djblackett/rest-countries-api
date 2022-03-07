@@ -9,23 +9,16 @@ import { lightTheme, darkTheme } from "./components/Themes";
 import CountriesHeader from "./components/CountriesHeader";
 import { Outlet, useLocation, Routes, Route } from "react-router-dom";
 import "@reach/dialog/styles.css";
-import {
-  getCountries,
-  createMap,
-  selectCountries,
-  selectIsFulfilled,
-} from "./countriesSlice";
+import { getCountries, createMap, selectIsFulfilled } from "./countriesSlice";
 import { CountryGrid } from "./components/CountryGrid";
 import { NoMatch } from "./NoMatch";
 
 function App() {
   let location = useLocation();
-  const countries = useSelector(selectCountries);
+  // const countries = useSelector(selectCountries);
   const isFinishedLoading = useSelector(selectIsFulfilled);
-  // The `backgroundLocation` state is the location that we were at when one of
-  // the gallery links was clicked. If it's there, use it as the location for
-  // the <Routes> so we show the gallery in the background, behind the modal.
-  let state = location.state as { backgroundLocation?: Location };
+
+  // let state = location.state as { backgroundLocation?: Location };
   const dispatch = useDispatch();
   const [theme, setTheme] = useState("light");
   const themeToggler = () => {
@@ -43,6 +36,7 @@ function App() {
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <GlobalStyles />
+
       <div className="App">
         <CountriesHeader themeToggler={themeToggler} />
 

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 const Header = styled.nav`
   width: 100%;
   min-height: 50px;
+  max-height: 60px;
   font-weight: bold;
   font-size: 18px;
   display: flex;
@@ -17,6 +18,10 @@ const Header = styled.nav`
   color: ${({ theme }) => theme.text};
   filter: drop-shadow(3px 3px 3px black);
   z-index: 5;
+`;
+
+const Home = styled.p`
+  color: ${({ theme }) => theme.text};
 `;
 
 const Button = styled.button`
@@ -36,8 +41,8 @@ const Button = styled.button`
 function CountriesHeader(props) {
   return (
     <Header>
-      <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-        <p>Where in the world?</p>
+      <Link to="/" style={{ textDecoration: "none" }}>
+        <Home>Where in the world?</Home>
       </Link>
       <Button onClick={props.themeToggler}>
         <ion-icon name="moon-outline"></ion-icon>

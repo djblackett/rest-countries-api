@@ -71,12 +71,6 @@ function CountryCardDetails(props) {
 
   if (country) {
     return (
-      // <Dialog
-      //   aria-labelledby="label"
-      //   onDismiss={onDismiss}
-      //   initialFocusRef={buttonRef}
-      //   style={{ width: "100vw", height: "100vh" }}
-      // >
       <Container>
         <BackButton onClick={onDismiss}>
           <ion-icon name="arrow-back-outline"></ion-icon>
@@ -135,7 +129,6 @@ function CountryCardDetails(props) {
           </Footer>
         </InfoContainer>
       </Container>
-      // </Dialog>
     );
   } else {
     return <h1>Cannot find particular country</h1>;
