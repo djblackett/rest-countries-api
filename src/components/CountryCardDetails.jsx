@@ -62,10 +62,9 @@ function CountryCardDetails() {
           <p>Back</p>
         </BackButton>
         <Image>
-          <img style={imgStyles} src={country.flags.png} />
+          <img style={imgStyles} src={country.flags.png} alt={country.name} />
         </Image>
 
-        
         <InfoContainer>
           <Header>{country.name}</Header>
 
