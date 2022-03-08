@@ -8,7 +8,6 @@ import {
   selectIsFetching,
 } from "../countriesSlice";
 import { CountryGridContainer } from "../css/CountryGridStyles";
-import RegionDropDown from "./RegionDropDown";
 import SearchBar from "./SearchBar";
 import DropDown from "./DropDown";
 
