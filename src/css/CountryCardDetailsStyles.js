@@ -3,23 +3,32 @@ import styled from "styled-components";
 export const Container = styled.div`
   /* margin-top: 70px;
   margin-left: 50px; */
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
   align-items: center;
-  grid-template: 150px 300px / 1fr;
+  /* grid-template: 150px 300px / 1fr; */
   background-color: ${({ theme }) => theme.body};
   font-size: 16px;
 
-  @media (min-width: 1200px) {
+  @media (min-width: 900px) {
+    /* align-items: flex-start; */
+    max-width: 900px;
+  }
+
+  @media (min-width: 1400px) {
+    max-width: 100%;
     display: grid;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    grid-template: 150px 300px / 35% 50%;
-    margin-top: 100px;
-    margin-left: 50px;
+    /* justify-content: center; */
+    /* align-content: center; */
+    align-items: start;
+    grid-template: 200px 300px / 35% 50%;
+    margin-top: 50px;
+    /* margin-left: 50px; */
+    margin-left: 1%;
+    margin-right: 1%;
   }
 `;
 
@@ -39,10 +48,16 @@ export const BackButton = styled.button`
   border-radius: 6px;
   color: ${({ theme }) => theme.text};
 
-  @media (min-width: 1200px) {
-    margin-bottom: 0;
+  @media (min-width: 600px) {
+    margin-top: 100px;
+    margin-left: 50px;
+  }
+
+  @media (min-width: 1400px) {
+    /* margin-bottom: 0; */
     grid-area: 1 / 1 / 2 / 3;
-    align-self: normal;
+    align-self: start;
+    justify-self: start;
     margin-left: 0;
   }
 `;
@@ -50,15 +65,22 @@ export const BackButton = styled.button`
 export const Image = styled.div`
   height: auto;
   width: 90%;
+  max-width: 500px;
   aspect-ratio: calc(5 / 3);
   display: block;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   filter: drop-shadow(2px 2px 2px black);
 
-  @media (min-width: 1200px) {
+  @media (min-width: 600px) {
+    align-self: flex-start;
+    margin-left: 50px;
+  }
+
+  @media (min-width: 1400px) {
     height: 300px;
     width: 500px;
+    margin-left: 0;
   }
 `;
 
@@ -68,19 +90,35 @@ export const InfoContainer = styled.section`
   height: 200px;
   width: 90%;
 
-  @media (min-width: 1200px) {
+  @media (min-width: 900px) {
     display: grid;
-    grid-template: 50px 200px 50px/ 40% 60%;
+    grid-template: 100px 200px 50px/ 40% 60%;
+    /* margin-left: 50px; */
+    /* height: 300px; */
+    /* width: 700px; */
+  }
+
+  @media (min-width: 1400px) {
+    display: grid;
+    grid-template: 50px 150px 50px/ 40% 60%;
     margin-left: 50px;
-    height: 300px;
-    width: 700px;
+    /* height: 300px; */
+    width: 100%;
   }
 `;
 
 export const Header = styled.h1`
   grid-area: 1 / 1 / 2 / 3;
-  align-self: center;
+  align-self: start;
   padding: 10px;
+  margin-bottom: 20px;
+
+  @media (min-width: 1400px) {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 `;
 
 export const InfoPane = styled.div`
@@ -102,8 +140,12 @@ export const Footer = styled.div`
   flex-direction: row;
   align-items: flex-start;
   padding: 10px;
+  width: 100%;
 
-  @media (min-width: 1200px) {
+  /* @media (min-width: 900px) {
+  } */
+
+  @media (min-width: 900px) {
     grid-area: 3 / 1 / 4 / 3;
   }
 `;

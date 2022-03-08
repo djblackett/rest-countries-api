@@ -18,7 +18,7 @@ const Header = styled.nav`
   filter: drop-shadow(3px 3px 3px black);
   z-index: 5;
 
-  @media (min-width: 1200px) {
+  @media (min-width: 600px) {
     min-height: 50px;
     max-height: 60px;
     position: fixed;

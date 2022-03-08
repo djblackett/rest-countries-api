@@ -24,6 +24,18 @@ export const InputContainer = styled.div`
   grid-area: 1 / 1 / 2 / 2;
   filter: drop-shadow(3px 3px 3px black);
 
+  @media (min-width: 600px) {
+    width: 100%;
+    margin: 0;
+    grid-area: 1 / 1 / 2 / 2;
+    justify-self: flex-start;
+  }
+
+  @media (min-width: 900px) {
+    grid-area: 1 / 1 / 2 / 3;
+    width: 100%;
+  }
+
   @media (min-width: 1200px) {
     grid-area: 1 / 1 / 2 / 3;
     width: 350px;

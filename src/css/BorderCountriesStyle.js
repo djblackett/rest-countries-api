@@ -23,4 +23,5 @@ export const BorderCountryContainer = styled.div`
   align-content: center;
   justify-content: flex-start;
   flex-wrap: wrap;
+  height: auto;
 `;

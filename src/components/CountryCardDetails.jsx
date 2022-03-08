@@ -64,6 +64,8 @@ function CountryCardDetails() {
         <Image>
           <img style={imgStyles} src={country.flags.png} />
         </Image>
+
+        
         <InfoContainer>
           <Header>{country.name}</Header>
 

@@ -14,10 +14,13 @@ export const CountryGridContainer = styled.div`
     grid-template: 100px repeat(3, 1fr) / repeat(2, 250px);
     gap: 50px;
     margin-top: 100px;
+    justify-content: center;
   }
+
   @media (min-width: 900px) {
     grid-template: 100px repeat(3, 1fr) / repeat(3, 250px);
   }
+
   @media (min-width: 1200px) {
     grid-template: 100px repeat(3, 1fr) / repeat(4, 250px);
     margin-left: 220px;

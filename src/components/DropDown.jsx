@@ -16,6 +16,16 @@ const Main = styled("div")`
   margin: 20px 5%;
   margin-bottom: 30px;
 
+  @media (min-width: 600px) {
+    grid-area: 1 / 2 / 2 / 3;
+    justify-self: start;
+    margin: 0;
+  }
+
+  @media (min-width: 900px) {
+    grid-area: 1 / 3 / 2 / 4;
+  }
+
   @media (min-width: 1200px) {
     justify-self: end;
     grid-area: 1 / 3 / 2 / 5;
