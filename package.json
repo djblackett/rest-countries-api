@@ -18,6 +18,7 @@
     "fomantic-ui": "^2.8.8",
     "fomantic-ui-css": "^2.8.8",
     "gh-pages": "^3.2.3",
+    "normalize.css": "^8.0.1",
     "prop-types": "^15.8.0",
     "react": "^17.0.2",
     "react-bootstrap": "^2.2.0",

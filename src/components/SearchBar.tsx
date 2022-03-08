@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useSearchParams } from "react-router-dom";
 
 export const InputContainer = styled.div`
+  cursor: pointer;
   box-sizing: border-box;
   background: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.text};
@@ -17,7 +18,7 @@ export const InputContainer = styled.div`
 
   display: flex;
   justify-content: flex-start;
-  align-self: center;
+  align-self: start;
   align-items: center;
   justify-self: center;
   grid-area: 1 / 1 / 2 / 2;
@@ -28,6 +29,9 @@ export const InputContainer = styled.div`
     width: 350px;
     padding-left: 10px;
     align-self: start;
+    justify-self: start;
+    margin-left: 0;
+    margin-top: 0;
   }
 `;
 
@@ -53,34 +57,6 @@ export const SearchFilterContainer = styled.div`
   margin: 50px;
   width: 300px;
 `;
-
-export const magnifyingGlass = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="ionicon"
-    viewBox="0 0 512 512"
-    height="50px"
-    width="50px"
-  >
-    <title>Search</title>
-    <path
-      d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z"
-      fill="none"
-      stroke="currentColor"
-      strokeMiterlimit="10"
-      strokeWidth="32"
-    />
-    <path
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeMiterlimit="10"
-      strokeWidth="32"
-      d="M338.29 338.29L448 448"
-    />
-    <div />
-  </svg>
-);
 
 function SearchBar() {
   const [searchParams, setSearchParams] = useSearchParams();

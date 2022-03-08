@@ -2,15 +2,13 @@ import styled from "styled-components";
 
 export const CountryGridContainer = styled.div`
   box-sizing: border-box;
-  /* margin: 50px; */
-  /* width: 100%; */
-  margin-top: 75px;
+  margin-top: 15px;
   display: grid;
   gap: 30px;
   text-decoration: none;
-  grid-template: 50px 50px repeat(8, 1fr) / 1fr;
-  align-items: center;
-  align-content: center;
+  grid-template: 50px 100px repeat(8, 1fr) / 1fr;
+  align-items: start;
+  /* align-content: center; */
 
   @media (min-width: 600px) {
     grid-template: 100px repeat(3, 1fr) / repeat(2, 250px);
@@ -26,15 +24,3 @@ export const CountryGridContainer = styled.div`
     margin-right: 220px;
   }
 `;
-
-// export const SearchAndFilter = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-between;
-//   align-items: center;
-//   margin-top: 75px;
-//   margin-bottom: 0;
-//   max-height: 80px;
-// `;
-
-

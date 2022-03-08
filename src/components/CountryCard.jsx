@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import CardInfoEntry from "./CardInfoEntry";
 
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -8,7 +9,7 @@ function numberWithCommas(x) {
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 250px;
+  width: 300px;
   background-color: ${({ theme }) => theme.background};
   border: none;
   border-radius: 10px;
@@ -16,17 +17,23 @@ const CardContainer = styled.div`
   color: ${({ theme }) => theme.text};
   text-decoration: none;
   filter: drop-shadow(3px 3px 3px black);
+  height: 375px;
 `;
 
 const Image = styled.div`
-  width: 250px;
-  height: 150px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: calc(5 / 3);
   border: none;
   outline: none;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (min-height: 1200px) {
+    width: 300px;
+  }
 `;
 
 const CardInfoWrapper = styled.section`
@@ -36,35 +43,17 @@ const CardInfoWrapper = styled.section`
 `;
 
 const CountryName = styled.h1`
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   margin-left: 5px;
-`;
-
-const InfoSpan = styled.span`
-  font-weight: bold;
-`;
-
-const InfoText = styled.p`
-  font: 16px;
-  margin-left: 0.3em;
-`;
-
-const InfoEntry = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  width: 200px;
-  height: 20px;
-  margin: 5px;
+  font-size: 1.4em;
 `;
 
 function CountryCard(props) {
   const country = props.country;
 
   const imgStyle = {
-    width: "252px",
-    height: "152px",
+    width: "101%",
+    height: "100%",
     border: "none",
     outline: "none",
     borderImageWidth: "0",
@@ -77,18 +66,21 @@ function CountryCard(props) {
       </Image>
       <CardInfoWrapper>
         <CountryName>{country.name}</CountryName>
-        <InfoEntry>
-          <InfoSpan>Population: </InfoSpan>
-          <InfoText>{numberWithCommas(country.population)}</InfoText>
-        </InfoEntry>
-        <InfoEntry>
-          <InfoSpan>Region: </InfoSpan>
-          <InfoText>{country.region}</InfoText>
-        </InfoEntry>
-        <InfoEntry>
-          <InfoSpan>Capital: </InfoSpan>
-          <InfoText>{country.capital}</InfoText>
-        </InfoEntry>
+        <CardInfoEntry
+          text="Population: "
+          value={numberWithCommas(country.population)}
+          leftMargin={"5px"}
+        />
+        <CardInfoEntry
+          text="Region: "
+          value={country.region}
+          leftMargin={"5px"}
+        />
+        <CardInfoEntry
+          text="Capital: "
+          value={country.capital}
+          leftMargin={"5px"}
+        />
       </CardInfoWrapper>
     </CardContainer>
   );

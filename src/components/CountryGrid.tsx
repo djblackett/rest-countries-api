@@ -9,12 +9,11 @@ import {
 } from "../countriesSlice";
 import { CountryGridContainer } from "../css/CountryGridStyles";
 import RegionDropDown from "./RegionDropDown";
-import DropDown from "./DropDown";
 import SearchBar from "./SearchBar";
+import DropDown from "./DropDown";
 
 export function CountryGrid() {
-  let location = useLocation();
-  let [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const countries = useSelector(selectCountries);
   const isFetching = useSelector(selectIsFetching);
   const fetchingError = useSelector(selectFetchingError);
@@ -34,7 +33,7 @@ export function CountryGrid() {
   return (
     <CountryGridContainer>
       <SearchBar />
-      <RegionDropDown />
+      <DropDown />
 
       {countries
         .filter((country: any) => {
@@ -46,7 +45,7 @@ export function CountryGrid() {
 
         .filter((country: any) => {
           let region = searchParams.get("region");
-          if (!region) return true;
+          if (!region || region === "All") return true;
           let regionName = country.region;
           return region === regionName;
         })

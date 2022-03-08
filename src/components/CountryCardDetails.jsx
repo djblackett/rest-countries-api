@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { Dialog } from "@reach/dialog";
 import { selectCountries } from "../countriesSlice";
 import {
   Container,
@@ -9,27 +8,21 @@ import {
   InfoContainer,
   Header,
   InfoPane,
-  InfoSpan,
-  InfoText,
-  InfoEntry,
   Footer,
   BackButton,
   BorderSpan,
 } from "../css/CountryCardDetailsStyles";
 import { BorderCountries } from "./BorderCountries";
+import CardInfoEntry from "./CardInfoEntry";
 
 function numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ", ");
 }
 
-function CountryCardDetails(props) {
+function CountryCardDetails() {
   const navigate = useNavigate();
   const { id } = useParams();
-  let buttonRef = React.useRef < HTMLButtonElement > null;
   const countries = useSelector(selectCountries);
-  console.log(id);
-  // console.log(countries);
-
   const [country, setCountry] = useState(null);
 
   function getCountryByName(id) {
@@ -37,14 +30,6 @@ function CountryCardDetails(props) {
     let c = countries.find((country) => country.name === id);
     console.log(c);
     return c;
-  }
-
-  function getCountryNameByCioc(text) {
-    console.log(text);
-    let c = countries.find((country) => country.alpha3Code === text);
-    if (c) {
-      return c.name;
-    }
   }
 
   useEffect(() => {
@@ -62,8 +47,8 @@ function CountryCardDetails(props) {
   }
 
   const imgStyles = {
-    height: "300px",
-    width: "500px",
+    height: "100%",
+    width: "100%",
     display: "block",
     boxSizing: "border-box",
     src: "url(${country.flags.png}) no-repeat",
@@ -81,47 +66,34 @@ function CountryCardDetails(props) {
         </Image>
         <InfoContainer>
           <Header>{country.name}</Header>
+
           <InfoPane>
-            <InfoEntry>
-              <InfoSpan>Native Name: </InfoSpan>
-              <InfoText>{country.nativeName}</InfoText>
-            </InfoEntry>
-            <InfoEntry>
-              <InfoSpan>Population: </InfoSpan>
-              <InfoText>{numberWithCommas(country.population)}</InfoText>
-            </InfoEntry>
-            <InfoEntry>
-              <InfoSpan>Region: </InfoSpan>
-              <InfoText>{country.region}</InfoText>
-            </InfoEntry>
-            <InfoEntry>
-              <InfoSpan>Sub Region: </InfoSpan>
-              <InfoText>{country.subregion}</InfoText>
-            </InfoEntry>
-            <InfoEntry>
-              <InfoSpan>Capital: </InfoSpan>
-              <InfoText>{country.capital}</InfoText>
-            </InfoEntry>
+            <CardInfoEntry text={"Native Name: "} value={country.nativeName} />
+            <CardInfoEntry
+              text={"Population: "}
+              value={numberWithCommas(country.population)}
+            />
+            <CardInfoEntry text={"Region: "} value={country.region} />
+            <CardInfoEntry text={"Sub Region: "} value={country.subregion} />
+            <CardInfoEntry text={"Capital: "} value={country.capital} />
           </InfoPane>
           <InfoPane>
-            <InfoEntry>
-              <InfoSpan>Top Level Domain: </InfoSpan>
-              <InfoText>{country.tld}</InfoText>
-            </InfoEntry>
-            <InfoEntry>
-              <InfoSpan>Currencies: </InfoSpan>
-              <InfoText>
-                {Object.values(country.currencies)
-                  .map((x) => x.name)
-                  .join(",")}
-              </InfoText>
-            </InfoEntry>
-            <InfoEntry>
-              <InfoSpan>Languages: </InfoSpan>
-              <InfoText>
-                {country.languages.map((language) => language.name).join(", ")}
-              </InfoText>
-            </InfoEntry>
+            <CardInfoEntry
+              text={"Top Level Domain: "}
+              value={country.topLevelDomain[0]}
+            />
+            <CardInfoEntry
+              text={"Currencies: "}
+              value={Object.values(country.currencies)
+                .map((x) => x.name)
+                .join(",")}
+            />
+            <CardInfoEntry
+              text={"Languages: "}
+              value={country.languages
+                .map((language) => language.name)
+                .join(", ")}
+            />
           </InfoPane>
           <Footer>
             <BorderSpan>Border Countries: </BorderSpan>

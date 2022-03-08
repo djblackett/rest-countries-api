@@ -3,9 +3,8 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const Header = styled.nav`
-  width: 100%;
-  min-height: 50px;
-  max-height: 60px;
+  width: inherit;
+  height: 80px;
   font-weight: bold;
   font-size: 18px;
   display: flex;
@@ -14,10 +13,16 @@ const Header = styled.nav`
   background-color: ${({ theme }) => theme.background};
   padding: 0 20px;
   box-sizing: border-box;
-  position: fixed;
+
   color: ${({ theme }) => theme.text};
   filter: drop-shadow(3px 3px 3px black);
   z-index: 5;
+
+  @media (min-width: 1200px) {
+    min-height: 50px;
+    max-height: 60px;
+    position: fixed;
+  }
 `;
 
 const Home = styled.p`

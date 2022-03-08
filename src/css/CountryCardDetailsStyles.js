@@ -1,48 +1,79 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  margin-top: 70px;
-  margin-left: 50px;
-  display: grid;
+  /* margin-top: 70px;
+  margin-left: 50px; */
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-content: center;
   align-items: center;
-  grid-template: 150px 300px / 35% 50%;
+  grid-template: 150px 300px / 1fr;
   background-color: ${({ theme }) => theme.body};
   font-size: 16px;
+
+  @media (min-width: 1200px) {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    grid-template: 150px 300px / 35% 50%;
+    margin-top: 100px;
+    margin-left: 50px;
+  }
 `;
 
 export const BackButton = styled.button`
   margin-top: 25px;
+  margin-bottom: 25px;
+  margin-left: 5%;
   width: 100px;
-  height: 50px;
+  height: 45px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  grid-area: 1 / 1 / 2 / 3;
+  align-self: flex-start;
+
   background-color: ${({ theme }) => theme.background};
   filter: drop-shadow(2px 2px 2px black);
   border-radius: 6px;
   color: ${({ theme }) => theme.text};
+
+  @media (min-width: 1200px) {
+    margin-bottom: 0;
+    grid-area: 1 / 1 / 2 / 3;
+    align-self: normal;
+    margin-left: 0;
+  }
 `;
 
 export const Image = styled.div`
-  height: 300px;
-  width: 500px;
+  height: auto;
+  width: 90%;
+  aspect-ratio: calc(5 / 3);
   display: block;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   filter: drop-shadow(2px 2px 2px black);
+
+  @media (min-width: 1200px) {
+    height: 300px;
+    width: 500px;
+  }
 `;
 
 export const InfoContainer = styled.section`
-  display: grid;
-  grid-template: 50px 200px 50px/ 1fr 1fr;
-  height: 300px;
-  width: 700px;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  width: 90%;
 
   @media (min-width: 1200px) {
+    display: grid;
+    grid-template: 50px 200px 50px/ 40% 60%;
     margin-left: 50px;
+    height: 300px;
+    width: 700px;
   }
 `;
 
@@ -57,42 +88,22 @@ export const InfoPane = styled.div`
   flex-direction: column;
   padding: 10px;
   align-items: flex-start;
-`;
-
-export const InfoSpan = styled.span`
-  font-weight: bold;
+  height: 100%;
 `;
 
 export const BorderSpan = styled.div`
   width: 200px;
   font-weight: bold;
-  /* align-self: flex-start;
-  justify-self: flex-start; */
   padding-top: 10px;
-`;
-
-export const InfoText = styled.p`
-  font: 14px;
-  margin-left: 0.3em;
-`;
-
-export const InfoEntry = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  /* justify-content: flex-start; */
-  width: 100%;
-  height: 20px;
-  margin: 5px 0;
 `;
 
 export const Footer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  grid-area: 3 / 1 / 4 / 3;
   padding: 10px;
-  /* margin-left: 10px; */
-  /* justify-content: center; */
-  /* justify-items: center; */
+
+  @media (min-width: 1200px) {
+    grid-area: 3 / 1 / 4 / 3;
+  }
 `;
