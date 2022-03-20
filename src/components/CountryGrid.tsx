@@ -53,7 +53,7 @@ export function CountryGrid() {
           return (
             <Link
               key={index}
-              to={`/${country.name}`}
+              to={`/${country.name.replaceAll(/ /g, "-")}`}
               style={{
                 textDecoration: "none",
                 display: "flex",

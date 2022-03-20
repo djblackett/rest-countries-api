@@ -27,7 +27,9 @@ function CountryCardDetails() {
 
   function getCountryByName(id) {
     console.log(id);
-    let c = countries.find((country) => country.name === id);
+    // changes dashes to spaces
+    let nameWithSpaces = id.replaceAll(/-/g, " ");
+    let c = countries.find((country) => country.name === nameWithSpaces);
     console.log(c);
     return c;
   }
@@ -43,7 +45,7 @@ function CountryCardDetails() {
   function handleClick(e) {
     let text = e.target.textContent;
     console.log("handleClick text content -> " + text);
-    navigate(`/${text}`);
+    navigate(`/${text.replaceAll(/ /g, "-")}`);
   }
 
   const imgStyles = {
