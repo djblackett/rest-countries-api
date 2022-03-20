@@ -118,6 +118,7 @@ const ItemButton = styled.button`
   width: 100%;
   background-color: transparent;
   border: none;
+  color: ${({ theme }) => theme.text};
 `;
 
 const options = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
