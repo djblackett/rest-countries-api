@@ -27,6 +27,7 @@ const Header = styled.nav`
 
 const Home = styled.p`
   color: ${({ theme }) => theme.text};
+  font-size: 1.5rem;
 `;
 
 const Button = styled.div.attrs({
@@ -43,6 +44,7 @@ const Button = styled.div.attrs({
   align-items: center;
   justify-content: space-around;
   width: 150px;
+  cursor: pointer;
 `;
 
 function CountriesHeader(props) {

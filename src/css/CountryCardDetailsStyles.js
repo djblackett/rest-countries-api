@@ -47,6 +47,7 @@ export const BackButton = styled.button`
   filter: drop-shadow(2px 2px 2px black);
   border-radius: 6px;
   color: ${({ theme }) => theme.text};
+  cursor: pointer;
 
   @media (min-width: 600px) {
     margin-top: 100px;
