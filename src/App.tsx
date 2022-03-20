@@ -24,7 +24,11 @@ function App() {
   const themeToggler = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
   };
-
+  const themeTogglerEnter = (e: any) => {
+    if (e.charCode === 13 || e.keyCode === 13) {
+      theme === "light" ? setTheme("dark") : setTheme("light");
+    }
+  };
   useEffect(() => {
     dispatch(getCountries());
   }, []);
@@ -38,7 +42,7 @@ function App() {
       <GlobalStyles />
 
       <div className="App">
-        <CountriesHeader themeToggler={themeToggler} />
+        <CountriesHeader themeToggler={themeToggler} onEnter={themeTogglerEnter}/>
 
         <Routes>
           <Route path="/" element={<CountryGrid />} />

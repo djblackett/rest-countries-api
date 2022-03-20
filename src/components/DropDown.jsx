@@ -68,7 +68,9 @@ const DropDownContainer = styled("div")`
   filter: drop-shadow(2px 2px 2px bottom);
 `;
 
-const DropDownHeader = styled("div")`
+const DropDownHeader = styled.div.attrs({
+  tabIndex: "0",
+})`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -104,9 +106,18 @@ const DropDownList = styled("ul")`
   }
 `;
 
-const ListItem = styled("li")`
+const ListItem = styled.li.attrs({
+  // tabIndex: "0",
+})`
   list-style: none;
   margin-bottom: 0.8em;
+`;
+
+const ItemButton = styled.button`
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  border: none;
 `;
 
 const options = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
@@ -117,6 +128,11 @@ export default function DropDown() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const toggling = () => setIsOpen(!isOpen);
+  const togglingButton = (e) => {
+    if (e.charCode === 13 || e.keyCode === 13) {
+      setIsOpen(!isOpen);
+    }
+  };
 
   const onOptionClicked = (region) => () => {
     setRegionState(region);
@@ -141,7 +157,7 @@ export default function DropDown() {
   return (
     <Main>
       <DropDownContainer>
-        <DropDownHeader onClick={toggling}>
+        <DropDownHeader onClick={toggling} onKeyPress={togglingButton}>
           {regionState || "Filter by Region"}
           <IonIcon name="chevron-down-outline"></IonIcon>
         </DropDownHeader>
@@ -149,8 +165,10 @@ export default function DropDown() {
           <DropDownListContainer>
             <DropDownList>
               {options.map((option, index) => (
-                <ListItem onClick={onOptionClicked(option)} key={index}>
-                  {option}
+                <ListItem>
+                  <ItemButton onClick={onOptionClicked(option)} key={index}>
+                    {option}
+                  </ItemButton>
                 </ListItem>
               ))}
             </DropDownList>

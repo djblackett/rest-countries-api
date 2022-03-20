@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
-export const BorderCountry = styled.p`
+export const BorderCountry = styled.button`
   background-color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.text};
   margin: 2px 7px;
   text-align: center;
   touch-action: none;

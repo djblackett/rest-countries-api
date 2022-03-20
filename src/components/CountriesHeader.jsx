@@ -29,17 +29,19 @@ const Home = styled.p`
   color: ${({ theme }) => theme.text};
 `;
 
-const Button = styled.button`
+const Button = styled.div.attrs({
+  tabIndex: "0",
+})`
   background: transparent;
   border: none;
-  outline: none;
+  /* outline: none; */
   color: ${({ theme }) => theme.text};
   font-size: 18px;
   font-weight: bold;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 150px;
 `;
 
@@ -49,7 +51,7 @@ function CountriesHeader(props) {
       <Link to="/" style={{ textDecoration: "none" }}>
         <Home>Where in the world?</Home>
       </Link>
-      <Button onClick={props.themeToggler}>
+      <Button onClick={props.themeToggler} onKeyPress={props.onEnter}>
         <ion-icon name="moon-outline"></ion-icon>
         <p>Dark Mode</p>
       </Button>

@@ -55,11 +55,15 @@ export const Input = styled.input.attrs({
   border: none;
   outline: none;
   color: ${({ theme }) => theme.text};
-  margin-left: 20px;
+  margin-left: 10px;
   height: 40px;
   font-size: 20px;
   &::placeholder {
     color: ${({ theme }) => theme.text};
+  }
+
+  @media (min-width: 370px) {
+    margin-left: 20px;
   }
 `;
 
