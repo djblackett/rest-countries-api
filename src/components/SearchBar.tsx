@@ -22,7 +22,7 @@ export const InputContainer = styled.div`
   align-items: center;
   justify-self: center;
   grid-area: 1 / 1 / 2 / 2;
-  filter: drop-shadow(3px 3px 3px black);
+  filter: drop-shadow(3px 3px 3px ${({ theme }) => theme.shadow});
 
   @media (min-width: 600px) {
     width: 100%;

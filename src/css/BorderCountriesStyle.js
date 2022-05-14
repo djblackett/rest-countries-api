@@ -14,7 +14,8 @@ export const BorderCountry = styled.button`
   align-items: center;
   font-size: 14px;
   cursor: pointer;
-  filter: drop-shadow(2px 2px 2px black);
+  filter: drop-shadow(2px 2px 2px ${({ theme }) => theme.shadow});
+  border: none;
 `;
 
 export const BorderCountryContainer = styled.div`

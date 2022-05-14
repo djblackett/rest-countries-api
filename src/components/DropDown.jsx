@@ -12,7 +12,7 @@ const Main = styled("div")`
   grid-area: 2 / 1 / 3 / 2;
   width: 35%;
   cursor: pointer;
-  filter: drop-shadow(2px 2px 2px bottom);
+  filter: drop-shadow(2px 2px 2px ${({ theme }) => theme.shadow});
   margin: 20px 5%;
   margin-bottom: 30px;
 
@@ -82,7 +82,7 @@ const DropDownHeader = styled.div.attrs({
   font-size: 1.2rem;
   color: ${({ theme }) => theme.text};
   border-radius: 6px;
-  filter: drop-shadow(2px 2px 2px black);
+  filter: drop-shadow(2px 2px 2px ${({ theme }) => theme.shadow});
   color: ${({ theme }) => theme.text};
   background-color: ${({ theme }) => theme.background};
 `;

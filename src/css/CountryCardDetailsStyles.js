@@ -44,10 +44,11 @@ export const BackButton = styled.button`
   align-self: flex-start;
 
   background-color: ${({ theme }) => theme.background};
-  filter: drop-shadow(2px 2px 2px black);
+  filter: drop-shadow(2px 2px 2px ${({ theme }) => theme.shadow});
   border-radius: 6px;
   color: ${({ theme }) => theme.text};
   cursor: pointer;
+  border: none;
 
   @media (min-width: 600px) {
     margin-top: 100px;
@@ -71,7 +72,7 @@ export const Image = styled.div`
   display: block;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  filter: drop-shadow(2px 2px 2px black);
+  filter: drop-shadow(2px 2px 2px ${({ theme }) => theme.shadow});
 
   @media (min-width: 600px) {
     align-self: flex-start;

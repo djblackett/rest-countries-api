@@ -16,7 +16,7 @@ const CardContainer = styled.div`
   overflow: hidden;
   color: ${({ theme }) => theme.text};
   text-decoration: none;
-  filter: drop-shadow(3px 3px 3px black);
+  filter: drop-shadow(3px 3px 3px ${({ theme }) => theme.shadow});
   height: 375px;
 `;
 

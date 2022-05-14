@@ -4,6 +4,7 @@ export const lightTheme = {
   toggleBorder: "#FFF",
   background: "hsl(0, 0%, 100%)",
   elements: "hsl(0, 0%, 100%)",
+  shadow: "grey",
 };
 export const darkTheme = {
   body: "hsl(207, 26%, 17%)",
@@ -11,6 +12,7 @@ export const darkTheme = {
   toggleBorder: "#6B8096",
   background: "hsl(209, 23%, 22%)",
   elements: "hsl(209, 23%, 22%)",
+  shadow: "black",
 };
 
 export const colors = {

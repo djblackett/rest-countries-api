@@ -15,7 +15,7 @@ const Header = styled.nav`
   box-sizing: border-box;
 
   color: ${({ theme }) => theme.text};
-  filter: drop-shadow(3px 3px 3px black);
+  filter: drop-shadow(3px 3px 3px ${({ theme }) => theme.shadow});
   z-index: 5;
 
   @media (min-width: 600px) {
