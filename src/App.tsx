@@ -9,9 +9,12 @@ import { lightTheme, darkTheme } from "./components/Themes";
 import CountriesHeader from "./components/CountriesHeader";
 import { Outlet, useLocation, Routes, Route } from "react-router-dom";
 import "@reach/dialog/styles.css";
-import { getCountries, createMap, selectIsFulfilled } from "./countriesSlice";
+import { getCountries, createMap, selectIsFulfilled } from "./features/countriesSlice";
 import { CountryGrid } from "./components/CountryGrid";
 import { NoMatch } from "./NoMatch";
+import type { RouteObject } from "react-router-dom";
+import { Link, useRoutes, useParams } from "react-router-dom";
+import Layout from "./components/Layout";
 
 function App() {
   let location = useLocation();
@@ -37,19 +40,46 @@ function App() {
     dispatch(createMap());
   }, [isFinishedLoading]);
 
+  let routes: RouteObject[] = [
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        {
+          index: true,
+          element: <CountryGrid />,
+        },
+
+        {
+          path: ":id",
+          element: <CountryCardDetails />,
+        },
+        { path: "*", element: <NoMatch /> },
+      ],
+    },
+  ];
+
+  let element = useRoutes(routes);
+
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <GlobalStyles />
 
       <div className="App">
-        <CountriesHeader themeToggler={themeToggler} onEnter={themeTogglerEnter}/>
+        <CountriesHeader
+          themeToggler={themeToggler}
+          onEnter={themeTogglerEnter}
+        />
 
-        <Routes>
-          <Route path="/" element={<CountryGrid />} />
-          <Route path="/:id" element={<CountryCardDetails />} />
+        {element}
+        {/* <Outlet /> */}
+
+        {/* <Routes>
+          <Route path="countries" element={<CountryGrid />} />
+          <Route path=":id" element={<CountryCardDetails />} />
           <Route path="*" element={<NoMatch />} />
         </Routes>
-        <Outlet />
+        <Outlet /> */}
       </div>
     </ThemeProvider>
   );

@@ -11,6 +11,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter basename="/rest-countries-api">
+        {/* <BrowserRouter> */}
         <App />
       </BrowserRouter>
     </Provider>

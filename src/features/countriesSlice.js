@@ -3,11 +3,39 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const getCountries = createAsyncThunk(
   "countries/getCountries",
   async (id, thunkAPI) => {
-    const response = await fetch("https://restcountries.com/v2/all");
-    const json = await response.json();
-    return json;
+    const savedCountries = localStorage.getItem("countries");
+    // if there are todos stored
+    if (savedCountries && savedCountries !== "[]") {
+      // return the parsed JSON object back to a javascript object
+      return JSON.parse(savedCountries);
+      // otherwise
+    } else {
+      const response = await fetch("https://restcountries.com/v2/all");
+      const json = await response.json();
+
+      // localStorage.setItem("savedCountries", JSON.stringify(json));
+      //  localStorage.setItem("mode", JSON.stringify({ colorMode: mode }));
+      window.addEventListener("unload", () => {
+        localStorage.setItem("store", JSON.stringify(store));
+      });
+      return json;
+    }
   }
 );
+
+const initializeData = () => {
+  // get the todos from localstorage
+  const savedTodos = localStorage.getItem("todos");
+  // if there are todos stored
+  if (savedTodos && savedTodos !== "[]") {
+    // return the parsed JSON object back to a javascript object
+    return JSON.parse(savedTodos);
+    // otherwise
+  } else {
+    // return an empty array
+    return initialData;
+  }
+};
 
 const options = {
   name: "countries",

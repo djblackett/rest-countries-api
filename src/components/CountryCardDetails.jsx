@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { selectCountries } from "../countriesSlice";
+import {
+  getCountries,
+  selectCountries,
+  selectIsFulfilled,
+  createMap,
+} from "../features/countriesSlice";
 import {
   Container,
   Image,
@@ -14,6 +19,7 @@ import {
 } from "../css/CountryCardDetailsStyles";
 import { BorderCountries } from "./BorderCountries";
 import CardInfoEntry from "./CardInfoEntry";
+import { NoMatch } from "../NoMatch";
 
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ", ");
@@ -24,19 +30,54 @@ function CountryCardDetails() {
   const { id } = useParams();
   const countries = useSelector(selectCountries);
   const [country, setCountry] = useState(null);
+  const dispatch = useDispatch();
+  const isFinishedLoading = useSelector(selectIsFulfilled);
 
   function getCountryByName(id) {
     console.log(id);
     // changes dashes to spaces
     let nameWithSpaces = id.replaceAll(/-/g, " ");
-    let c = countries.find((country) => country.name === nameWithSpaces);
-    console.log(c);
-    return c;
+    let result = countries.find(
+      (country) => country.name.toLowerCase() === nameWithSpaces.toLowerCase()
+    );
+
+    // This distinguishes between the country not being loaded yet and there being no result
+    if (!result) {
+      // setTimeout(() => setCountryExists(false), 1000);
+      setCountryExists(false);
+    } else {
+      setCountryExists(true);
+    }
+
+    return result;
   }
+
+  const [countryExists, setCountryExists] = useState(true);
+
+  useEffect(() => {
+    if (!countries) {
+      dispatch(getCountries);
+    }
+  }, []);
+
+  useEffect(() => {
+    dispatch(createMap());
+  }, [isFinishedLoading]);
 
   useEffect(() => {
     setCountry(getCountryByName(id));
-  }, [id]);
+    // console.log(country);
+    // if (country === undefined) {
+    //   setCountryExists(false);
+    //   console.log(countryExists);
+    // } else {
+    //   setCountryExists(true);
+    // }
+  }, [id, isFinishedLoading]);
+
+  useEffect(() => {
+    console.log("countryExists: " + countryExists);
+  });
 
   function onDismiss() {
     navigate(-1);
@@ -56,58 +97,70 @@ function CountryCardDetails() {
     src: "url(${country.flags.png}) no-repeat",
   };
 
-  if (country) {
-    return (
-      <Container>
-        <BackButton onClick={onDismiss}>
-          <ion-icon name="arrow-back-outline"></ion-icon>
-          <p>Back</p>
-        </BackButton>
-        <Image>
-          <img style={imgStyles} src={country.flags.png} alt={country.name} />
-        </Image>
+  return (
+    <Container>
+      <BackButton onClick={onDismiss}>
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        <p>Back</p>
+      </BackButton>
 
-        <InfoContainer>
-          <Header>{country.name}</Header>
+      {country && (
+        <>
+          <Image>
+            <img
+              style={imgStyles}
+              src={country.flags.png}
+              alt={country.name}
+              loading="lazy"
+            />
+          </Image>
 
-          <InfoPane>
-            <CardInfoEntry text={"Native Name: "} value={country.nativeName} />
-            <CardInfoEntry
-              text={"Population: "}
-              value={numberWithCommas(country.population)}
-            />
-            <CardInfoEntry text={"Region: "} value={country.region} />
-            <CardInfoEntry text={"Sub Region: "} value={country.subregion} />
-            <CardInfoEntry text={"Capital: "} value={country.capital} />
-          </InfoPane>
-          <InfoPane>
-            <CardInfoEntry
-              text={"Top Level Domain: "}
-              value={country.topLevelDomain[0]}
-            />
-            <CardInfoEntry
-              text={"Currencies: "}
-              value={Object.values(country.currencies)
-                .map((x) => x.name)
-                .join(",")}
-            />
-            <CardInfoEntry
-              text={"Languages: "}
-              value={country.languages
-                .map((language) => language.name)
-                .join(", ")}
-            />
-          </InfoPane>
-          <Footer>
-            <BorderSpan>Border Countries: </BorderSpan>
-            <BorderCountries country={country} handleClick={handleClick} />
-          </Footer>
-        </InfoContainer>
-      </Container>
-    );
-  } else {
-    return <h1>Cannot find particular country</h1>;
-  }
+          <InfoContainer>
+            <Header>{country.name}</Header>
+
+            <InfoPane>
+              <CardInfoEntry
+                text={"Native Name: "}
+                value={country.nativeName}
+              />
+              <CardInfoEntry
+                text={"Population: "}
+                value={numberWithCommas(country.population)}
+              />
+              <CardInfoEntry text={"Region: "} value={country.region} />
+              <CardInfoEntry text={"Sub Region: "} value={country.subregion} />
+              <CardInfoEntry text={"Capital: "} value={country.capital} />
+            </InfoPane>
+            <InfoPane>
+              <CardInfoEntry
+                text={"Top Level Domain: "}
+                value={country.topLevelDomain[0]}
+              />
+              <CardInfoEntry
+                text={"Currencies: "}
+                value={Object.values(country.currencies)
+                  .map((x) => x.name)
+                  .join(",")}
+              />
+              <CardInfoEntry
+                text={"Languages: "}
+                value={country.languages
+                  .map((language) => language.name)
+                  .join(", ")}
+              />
+            </InfoPane>
+            <Footer>
+              <BorderSpan>Border Countries: </BorderSpan>
+              <BorderCountries country={country} handleClick={handleClick} />
+            </Footer>
+          </InfoContainer>
+        </>
+      )}
+
+      {/* {setTimeout(() => countryExists === false && <NoMatch />, 500)} */}
+      {countryExists === false && <NoMatch />}
+    </Container>
+  );
 }
 
 export default CountryCardDetails;

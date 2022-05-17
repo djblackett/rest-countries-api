@@ -4,7 +4,7 @@ import {
   BorderCountry,
 } from "../css/BorderCountriesStyle";
 import { useSelector } from "react-redux";
-import { selectMap, selectIsFulfilled } from "../countriesSlice";
+import { selectMap, selectIsFulfilled } from "../features/countriesSlice";
 
 export function BorderCountries(props) {
   const countryMap = useSelector(selectMap);

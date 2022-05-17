@@ -62,7 +62,12 @@ function CountryCard(props) {
   return (
     <CardContainer>
       <Image>
-        <img src={country.flags.png} style={imgStyle} alt={country.name} />
+        <img
+          src={country.flags.png}
+          style={imgStyle}
+          alt={country.name}
+          loading="lazy"
+        />
       </Image>
       <CardInfoWrapper>
         <CountryName>{country.name}</CountryName>

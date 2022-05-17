@@ -22,6 +22,7 @@ const Header = styled.nav`
     min-height: 50px;
     max-height: 60px;
     position: fixed;
+    margin-bottom: 60px;
   }
 `;
 
