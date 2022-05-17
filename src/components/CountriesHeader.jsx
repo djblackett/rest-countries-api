@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { toggleColorMode } from "../features/colorModeSlice";
 
 const Header = styled.nav`
   width: inherit;
@@ -49,6 +51,7 @@ const Button = styled.div.attrs({
 `;
 
 function CountriesHeader(props) {
+  const dispatch = useDispatch();
   return (
     <Header>
       <Link to="/" style={{ textDecoration: "none" }}>

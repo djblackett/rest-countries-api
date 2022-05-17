@@ -9,7 +9,12 @@ import { lightTheme, darkTheme } from "./components/Themes";
 import CountriesHeader from "./components/CountriesHeader";
 import { Outlet, useLocation, Routes, Route } from "react-router-dom";
 import "@reach/dialog/styles.css";
-import { getCountries, createMap, selectIsFulfilled } from "./features/countriesSlice";
+import {
+  getCountries,
+  createMap,
+  selectIsFulfilled,
+} from "./features/countriesSlice";
+import { selectColorMode } from "./features/colorModeSlice";
 import { CountryGrid } from "./components/CountryGrid";
 import { NoMatch } from "./NoMatch";
 import type { RouteObject } from "react-router-dom";
@@ -20,10 +25,11 @@ function App() {
   let location = useLocation();
   // const countries = useSelector(selectCountries);
   const isFinishedLoading = useSelector(selectIsFulfilled);
+  const initialTheme = useSelector(selectColorMode);
 
   // let state = location.state as { backgroundLocation?: Location };
   const dispatch = useDispatch();
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(initialTheme);
   const themeToggler = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
   };
@@ -36,9 +42,9 @@ function App() {
     dispatch(getCountries());
   }, []);
 
-  useEffect(() => {
-    dispatch(createMap());
-  }, [isFinishedLoading]);
+  // useEffect(() => {
+  //   dispatch(createMap());
+  // }, [isFinishedLoading]);
 
   let routes: RouteObject[] = [
     {

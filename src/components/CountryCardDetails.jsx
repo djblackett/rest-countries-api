@@ -160,8 +160,6 @@ function CountryCardDetails() {
           </InfoContainer>
         </>
       )}
-
-      {/* {setTimeout(() => countryExists === false && <NoMatch />, 500)} */}
       {countryExists === false && <NoMatch />}
     </Container>
   );
