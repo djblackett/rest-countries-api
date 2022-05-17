@@ -5,8 +5,7 @@ import {
   getCountries,
   selectCountries,
   selectIsFulfilled,
-  createMap,
-} from "../features/countriesSlice";
+} from "../features/countries/countriesSlice";
 import {
   Container,
   Image,
@@ -32,6 +31,7 @@ function CountryCardDetails() {
   const [country, setCountry] = useState(null);
   const dispatch = useDispatch();
   const isFinishedLoading = useSelector(selectIsFulfilled);
+  const [countryExists, setCountryExists] = useState(true);
 
   function getCountryByName(id) {
     console.log(id);
@@ -52,17 +52,11 @@ function CountryCardDetails() {
     return result;
   }
 
-  const [countryExists, setCountryExists] = useState(true);
-
   useEffect(() => {
     if (!countries) {
       dispatch(getCountries);
     }
   }, []);
-
-  useEffect(() => {
-    dispatch(createMap());
-  }, [isFinishedLoading]);
 
   useEffect(() => {
     setCountry(getCountryByName(id));
@@ -73,7 +67,7 @@ function CountryCardDetails() {
     // } else {
     //   setCountryExists(true);
     // }
-  }, [id, isFinishedLoading]);
+  }, [id, isFinishedLoading, countries]);
 
   useEffect(() => {
     console.log("countryExists: " + countryExists);
@@ -160,7 +154,7 @@ function CountryCardDetails() {
           </InfoContainer>
         </>
       )}
-      {countryExists === false && <NoMatch />}
+      {!countryExists && <NoMatch />}
     </Container>
   );
 }

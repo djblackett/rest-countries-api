@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { toggleColorMode } from "../features/colorModeSlice";
+import { toggleColorMode } from "../features/colorMode/colorModeSlice";
 
 const Header = styled.nav`
   width: inherit;
@@ -52,12 +52,21 @@ const Button = styled.div.attrs({
 
 function CountriesHeader(props) {
   const dispatch = useDispatch();
+
+  const themeTogglerEnter = (e) => {
+    if (e.charCode === 13 || e.keyCode === 13) {
+      dispatch(toggleColorMode);
+    }
+  };
   return (
     <Header>
       <Link to="/" style={{ textDecoration: "none" }}>
         <Home>Where in the world?</Home>
       </Link>
-      <Button onClick={props.themeToggler} onKeyPress={props.onEnter}>
+      <Button
+        onClick={() => dispatch(toggleColorMode())}
+        onKeyPress={() => themeTogglerEnter()}
+      >
         <ion-icon name="moon-outline"></ion-icon>
         <p>Dark Mode</p>
       </Button>

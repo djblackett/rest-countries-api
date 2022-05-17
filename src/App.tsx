@@ -13,8 +13,8 @@ import {
   getCountries,
   createMap,
   selectIsFulfilled,
-} from "./features/countriesSlice";
-import { selectColorMode } from "./features/colorModeSlice";
+} from "./features/countries/countriesSlice";
+import { selectColorMode } from "./features/colorMode/colorModeSlice";
 import { CountryGrid } from "./components/CountryGrid";
 import { NoMatch } from "./NoMatch";
 import type { RouteObject } from "react-router-dom";
@@ -23,28 +23,14 @@ import Layout from "./components/Layout";
 
 function App() {
   let location = useLocation();
-  // const countries = useSelector(selectCountries);
-  const isFinishedLoading = useSelector(selectIsFulfilled);
-  const initialTheme = useSelector(selectColorMode);
 
-  // let state = location.state as { backgroundLocation?: Location };
+  const isFinishedLoading = useSelector(selectIsFulfilled);
+  const theme = useSelector(selectColorMode);
   const dispatch = useDispatch();
-  const [theme, setTheme] = useState(initialTheme);
-  const themeToggler = () => {
-    theme === "light" ? setTheme("dark") : setTheme("light");
-  };
-  const themeTogglerEnter = (e: any) => {
-    if (e.charCode === 13 || e.keyCode === 13) {
-      theme === "light" ? setTheme("dark") : setTheme("light");
-    }
-  };
+
   useEffect(() => {
     dispatch(getCountries());
   }, []);
-
-  // useEffect(() => {
-  //   dispatch(createMap());
-  // }, [isFinishedLoading]);
 
   let routes: RouteObject[] = [
     {
@@ -72,20 +58,8 @@ function App() {
       <GlobalStyles />
 
       <div className="App">
-        <CountriesHeader
-          themeToggler={themeToggler}
-          onEnter={themeTogglerEnter}
-        />
-
+        <CountriesHeader />
         {element}
-        {/* <Outlet /> */}
-
-        {/* <Routes>
-          <Route path="countries" element={<CountryGrid />} />
-          <Route path=":id" element={<CountryCardDetails />} />
-          <Route path="*" element={<NoMatch />} />
-        </Routes>
-        <Outlet /> */}
       </div>
     </ThemeProvider>
   );

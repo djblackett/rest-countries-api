@@ -6,7 +6,7 @@ import {
   selectCountries,
   selectFetchingError,
   selectIsFetching,
-} from "../features/countriesSlice";
+} from "../features/countries/countriesSlice";
 import { CountryGridContainer } from "../css/CountryGridStyles";
 import SearchBar from "./SearchBar";
 import DropDown from "./DropDown";

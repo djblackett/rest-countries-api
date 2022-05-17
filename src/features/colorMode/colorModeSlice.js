@@ -6,20 +6,14 @@ import { createSlice } from "@reduxjs/toolkit";
 // };
 
 const initializeColorMode = () => {
-  // get the todos from localstorage
-  const mode = localStorage.getItem("mode");
-  // if there are todos stored
+  // get the colorMode from localstorage
+  const mode = localStorage.getItem("colorMode");
+  // if there are colorMode stored
   if (mode && mode !== "[]") {
     // return the parsed JSON object back to a javascript object
+    console.log("mode " + mode);
 
-    if (mode === "dark") {
-      return { colorMode: JSON.parse(mode).colorMode };
-    } else {
-      return {
-        colorMode: JSON.parse(mode).colorMode,
-      };
-    }
-    // otherwise
+    return { colorMode: JSON.parse(mode) };
   } else {
     return { colorMode: "light" };
   }
@@ -27,7 +21,7 @@ const initializeColorMode = () => {
 
 const options = {
   name: "colorMode",
-  colorMode: initializeColorMode,
+  initialState: initializeColorMode,
   reducers: {
     toggleColorMode(state) {
       if (state.colorMode === "dark") {
@@ -47,7 +41,7 @@ const options = {
 const colorModeSlice = createSlice(options);
 
 export const selectColorMode = (state) => {
-  return state.colorMode;
+  return state.colorMode.colorMode;
 };
 
 export const { toggleColorMode } = colorModeSlice.actions;

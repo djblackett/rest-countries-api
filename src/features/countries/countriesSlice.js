@@ -71,13 +71,13 @@ const options = {
   },
 };
 
-const countriesStore = createSlice(options);
+const countriesSlice = createSlice(options);
 
 export const selectCountries = (state) => {
   return state.countries.countries;
 };
 
-export const { createMap } = countriesStore.actions;
+export const { createMap } = countriesSlice.actions;
 
 export const selectMap = (state) => {
   return state.countries.countryMap;
@@ -94,4 +94,4 @@ export const selectFetchingError = (state) => {
 export const selectIsFulfilled = (state) => {
   return state.countries.isFulfilled;
 };
-export default countriesStore.reducer;
+export default countriesSlice.reducer;
