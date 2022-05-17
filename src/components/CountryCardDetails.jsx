@@ -19,6 +19,7 @@ import {
 import { BorderCountries } from "./BorderCountries";
 import CardInfoEntry from "./CardInfoEntry";
 import { NoMatch } from "../NoMatch";
+import { CircleLoader } from "react-spinners";
 
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ", ");
@@ -31,7 +32,8 @@ function CountryCardDetails() {
   const [country, setCountry] = useState(null);
   const dispatch = useDispatch();
   const isFinishedLoading = useSelector(selectIsFulfilled);
-  const [countryExists, setCountryExists] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   function getCountryByName(id) {
     console.log(id);
@@ -44,11 +46,11 @@ function CountryCardDetails() {
     // This distinguishes between the country not being loaded yet and there being no result
     if (!result) {
       // setTimeout(() => setCountryExists(false), 1000);
-      setCountryExists(false);
+      // setCountryExists(false);
     } else {
-      setCountryExists(true);
+      // setCountryExists(true);
     }
-
+    setIsLoading(false);
     return result;
   }
 
@@ -69,9 +71,9 @@ function CountryCardDetails() {
     // }
   }, [id, isFinishedLoading, countries]);
 
-  useEffect(() => {
-    console.log("countryExists: " + countryExists);
-  });
+  // useEffect(() => {
+  //   console.log("countryExists: " + countryExists);
+  // });
 
   function onDismiss() {
     navigate(-1);
@@ -97,6 +99,8 @@ function CountryCardDetails() {
         <ion-icon name="arrow-back-outline"></ion-icon>
         <p>Back</p>
       </BackButton>
+
+      <CircleLoader loading={isLoading} size={200} height={"100vh"} />
 
       {country && (
         <>
@@ -154,7 +158,7 @@ function CountryCardDetails() {
           </InfoContainer>
         </>
       )}
-      {!countryExists && <NoMatch />}
+      {/* {!countryExists && <NoMatch />} */}
     </Container>
   );
 }

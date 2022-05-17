@@ -46,7 +46,7 @@ function App() {
           path: ":id",
           element: <CountryCardDetails />,
         },
-        { path: "*", element: <NoMatch /> },
+        // { path: "*", element: <NoMatch /> },
       ],
     },
   ];
