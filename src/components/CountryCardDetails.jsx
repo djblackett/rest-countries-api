@@ -138,9 +138,13 @@ function CountryCardDetails() {
               />
               <CardInfoEntry
                 text={"Currencies: "}
-                value={Object.values(country.currencies)
-                  .map((x) => x.name)
-                  .join(",")}
+                value={
+                  country.currencies
+                    ? Object.values(country.currencies)
+                        .map((x) => x.name)
+                        .join(",")
+                    : ""
+                }
               />
               <CardInfoEntry
                 text={"Languages: "}
