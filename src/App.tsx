@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CountryCardDetails from "./components/CountryCardDetails";
 import { ThemeProvider } from "styled-components";
@@ -8,7 +8,6 @@ import { lightTheme, darkTheme } from "./components/Themes";
 
 import CountriesHeader from "./components/CountriesHeader";
 import { Outlet, useLocation, Routes, Route } from "react-router-dom";
-import "@reach/dialog/styles.css";
 import {
   getCountries,
   createMap,
@@ -22,8 +21,6 @@ import { Link, useRoutes, useParams } from "react-router-dom";
 import Layout from "./components/Layout";
 
 function App() {
-  let location = useLocation();
-
   const isFinishedLoading = useSelector(selectIsFulfilled);
   const theme = useSelector(selectColorMode);
   const dispatch = useDispatch();

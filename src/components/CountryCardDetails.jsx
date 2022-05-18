@@ -100,7 +100,7 @@ function CountryCardDetails() {
         <p>Back</p>
       </BackButton>
 
-      <CircleLoader loading={isLoading} size={200} height={"100vh"} />
+      <CircleLoader loading={isLoading} size={200} height="100vh" />
 
       {country && (
         <>
