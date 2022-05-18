@@ -16,7 +16,7 @@ import {
 import { selectColorMode } from "./features/colorMode/colorModeSlice";
 import { CountryGrid } from "./components/CountryGrid";
 import { NoMatch } from "./NoMatch";
-import type { RouteObject } from "react-router-dom";
+// import type { RouteObject } from "react-router-dom";
 import { Link, useRoutes, useParams } from "react-router-dom";
 import Layout from "./components/Layout";
 
@@ -29,7 +29,7 @@ function App() {
     dispatch(getCountries());
   }, []);
 
-  let routes: RouteObject[] = [
+  let routes = [
     {
       path: "/",
       element: <Layout />,
