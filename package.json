@@ -4,7 +4,6 @@
   "description": "![Design preview for the REST Countries API with color theme switcher coding challenge](./design/desktop-preview.jpg)",
   "main": "index.jsx",
   "dependencies": {
-    
     "@reacticons/ionicons": "^6.0.2",
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.11.4",
@@ -25,7 +24,7 @@
     "react-spinners": "^0.12.0",
     "styled-components": "^5.3.5",
     "styled-theming": "^2.2.0",
-    "typescript": "^4.6.4",
+    "typescript": "^4.5.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
