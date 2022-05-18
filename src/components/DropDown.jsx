@@ -32,40 +32,12 @@ const Main = styled("div")`
     margin: 0;
     width: 250px;
   }
-  /* position: relative; */
 `;
-
-// export const Main = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: flex-end;
-//   align-items: flex-end;
-//   grid-area: 2 / 1 / 3 / 2;
-//   justify-self: start;
-//   align-self: center;
-//   text-align: end;
-//   font-size: 18px;
-//   font-weight: bold;
-//   margin: 0 5%;
-//   width: 55%;
-//   filter: drop-shadow(3px 3px 3px black);
-//   max-height: 50px;
-//   /* position: sticky; */
-
-//   @media (min-width: 1200px) {
-//     grid-area: 1 / 3 / 2 / 5;
-//     align-self: flex-start;
-//     justify-self: end;
-//     margin: 0;
-//     width: auto;
-//   }
-// `;
 
 const DropDownContainer = styled("div")`
   width: 250px;
   margin: 0 auto;
   z-index: 10;
-  /* filter: drop-shadow(2px 2px 2px bottom); */
 `;
 
 const DropDownHeader = styled.div.attrs({
@@ -76,7 +48,6 @@ const DropDownHeader = styled.div.attrs({
   align-items: center;
   box-sizing: border-box;
   height: 50px;
-  /* margin-bottom: 0.8em; */
   padding: 20px;
   font-weight: 600;
   font-size: 1.2rem;

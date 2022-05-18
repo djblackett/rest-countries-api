@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import countriesReducer from "./features/countries/countriesSlice";
-import colorModeReducer from "./features/colorMode/colorModeSlice";
+import countriesReducer from "../countries/countriesSlice";
+import colorModeReducer from "../colorMode/colorModeSlice";
 
 export const store = configureStore({
   reducer: {

@@ -1,5 +1,5 @@
 import React from "react";
-import CountryCardDetails from "./components/CountryCardDetails";
+import CountryCardDetails from "./CountryCardDetails";
 import { useParams } from "react-router-dom";
 
 

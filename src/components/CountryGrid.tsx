@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import CountryCard from "./CountryCard";
-import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   selectCountries,
   selectFetchingError,

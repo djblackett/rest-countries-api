@@ -3,25 +3,17 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CountryCardDetails from "./components/CountryCardDetails";
 import { ThemeProvider } from "styled-components";
-import { GlobalStyles } from "./components/globalStyles";
-import { lightTheme, darkTheme } from "./components/Themes";
+import { GlobalStyles } from "./css/globalStyles";
+import { lightTheme, darkTheme } from "./css/Themes";
 
 import CountriesHeader from "./components/CountriesHeader";
-import { Outlet, useLocation, Routes, Route } from "react-router-dom";
-import {
-  getCountries,
-  createMap,
-  selectIsFulfilled,
-} from "./features/countries/countriesSlice";
+import { getCountries } from "./features/countries/countriesSlice";
 import { selectColorMode } from "./features/colorMode/colorModeSlice";
 import { CountryGrid } from "./components/CountryGrid";
-import { NoMatch } from "./NoMatch";
-// import type { RouteObject } from "react-router-dom";
-import { Link, useRoutes, useParams } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import Layout from "./components/Layout";
 
 function App() {
-  const isFinishedLoading = useSelector(selectIsFulfilled);
   const theme = useSelector(selectColorMode);
   const dispatch = useDispatch();
 
@@ -43,7 +35,6 @@ function App() {
           path: ":id",
           element: <CountryCardDetails />,
         },
-        // { path: "*", element: <NoMatch /> },
       ],
     },
   ];

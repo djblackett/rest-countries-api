@@ -4,11 +4,10 @@ import {
   BorderCountry,
 } from "../css/BorderCountriesStyle";
 import { useSelector } from "react-redux";
-import { selectMap, selectIsFulfilled } from "../features/countries/countriesSlice";
-import { countryMap } from "./countryMap";
+import { selectIsFulfilled } from "../features/countries/countriesSlice";
+import { countryMap } from "../data/countryMap";
 
 export function BorderCountries(props) {
-  // const countryMap = useSelector(selectMap);
   const isFulfilled = useSelector(selectIsFulfilled);
 
   if (isFulfilled) {

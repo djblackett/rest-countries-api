@@ -18,7 +18,7 @@ import {
 } from "../css/CountryCardDetailsStyles";
 import { BorderCountries } from "./BorderCountries";
 import CardInfoEntry from "./CardInfoEntry";
-import { NoMatch } from "../NoMatch";
+import { NoMatch } from "./NoMatch";
 import { CircleLoader } from "react-spinners";
 
 function numberWithCommas(x) {
@@ -36,20 +36,12 @@ function CountryCardDetails() {
   const [error, setError] = useState(false);
 
   function getCountryByName(id) {
-    console.log(id);
     // changes dashes to spaces
     let nameWithSpaces = id.replaceAll(/-/g, " ");
     let result = countries.find(
       (country) => country.name.toLowerCase() === nameWithSpaces.toLowerCase()
     );
 
-    // This distinguishes between the country not being loaded yet and there being no result
-    if (!result) {
-      // setTimeout(() => setCountryExists(false), 1000);
-      // setCountryExists(false);
-    } else {
-      // setCountryExists(true);
-    }
     setIsLoading(false);
     return result;
   }
@@ -70,18 +62,7 @@ function CountryCardDetails() {
 
   useEffect(() => {
     setCountry(getCountryByName(id));
-    // console.log(country);
-    // if (country === undefined) {
-    //   setCountryExists(false);
-    //   console.log(countryExists);
-    // } else {
-    //   setCountryExists(true);
-    // }
   }, [id, isFinishedLoading, countries]);
-
-  // useEffect(() => {
-  //   console.log("countryExists: " + countryExists);
-  // });
 
   function onDismiss() {
     navigate(-1);
@@ -168,7 +149,6 @@ function CountryCardDetails() {
           </InfoContainer>
         </>
       )}
-      {/* {!countryExists && <NoMatch />} */}
     </Container>
   );
 }
