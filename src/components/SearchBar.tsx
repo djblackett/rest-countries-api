@@ -15,7 +15,7 @@ export const InputContainer = styled.div`
   margin-left: 5%;
   margin-right: 5%;
   padding: 10px;
-
+  z-index: 10;
   display: flex;
   justify-content: flex-start;
   align-self: start;

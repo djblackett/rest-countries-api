@@ -12,7 +12,7 @@ const Main = styled("div")`
   grid-area: 2 / 1 / 3 / 2;
   width: 35%;
   cursor: pointer;
-  filter: drop-shadow(2px 2px 2px ${({ theme }) => theme.shadow});
+  filter: drop-shadow(3px 3px 3px ${({ theme }) => theme.shadow});
   margin: 20px 5%;
   margin-bottom: 30px;
 
@@ -65,7 +65,7 @@ const DropDownContainer = styled("div")`
   width: 250px;
   margin: 0 auto;
   z-index: 10;
-  filter: drop-shadow(2px 2px 2px bottom);
+  /* filter: drop-shadow(2px 2px 2px bottom); */
 `;
 
 const DropDownHeader = styled.div.attrs({

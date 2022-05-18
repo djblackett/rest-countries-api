@@ -18,7 +18,7 @@ const Header = styled.nav`
 
   color: ${({ theme }) => theme.text};
   filter: drop-shadow(3px 3px 3px ${({ theme }) => theme.shadow});
-  z-index: 5;
+  z-index: 15;
 
   @media (min-width: 600px) {
     min-height: 50px;

@@ -33,7 +33,7 @@ function CountryCardDetails() {
   const dispatch = useDispatch();
   const isFinishedLoading = useSelector(selectIsFulfilled);
   const [isLoading, setIsLoading] = useState(true);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [error, setError] = useState(false);
 
   function getCountryByName(id) {
     console.log(id);
@@ -58,6 +58,14 @@ function CountryCardDetails() {
     if (!countries) {
       dispatch(getCountries);
     }
+
+    let timer = setTimeout(() => {
+      if (!country) {
+        setError(true);
+      }
+    }, 1500);
+
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -101,6 +109,8 @@ function CountryCardDetails() {
       </BackButton>
 
       <CircleLoader loading={isLoading} size={200} height="100vh" />
+
+      {!country && error && <NoMatch />}
 
       {country && (
         <>
