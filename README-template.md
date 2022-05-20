@@ -91,6 +91,8 @@ If you want more help with writing markdown, we'd recommend checking out [The Ma
 
 Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
 
+Typescript was added after the project was already completed, which is a pretty artificial way to use Typescript. I would like to continue learning and using Typescript, but from the very beginning of a project to reap most of its benefits. There are a few places where I struggled with the type definitions and ended up resorting to `any` as the type, which is certainly not ideal, so I hope to fill in those gaps in future projects and make sure I'm using Typescript to its fullest extent. 
+
 **Note: Delete this note and the content within this section and replace with your own plans for continued development.**
 
 ### Useful resources
@@ -102,7 +104,7 @@ Use this section to outline areas that you want to continue focusing on in futur
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
+- Website - [Dave Andrea](https://daveandrea.com)
 - Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
 - Twitter - [@yourusername](https://www.twitter.com/yourusername)
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../features/app/hooks";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   getCountries,
@@ -27,7 +28,7 @@ function numberWithCommas(x: number) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ", ");
 }
 
-interface Country {
+export interface Country {
   name: string;
   nativeName: string;
   numericCode: number;
@@ -39,6 +40,7 @@ interface Country {
   region: string;
   subregion: string;
   capital: string;
+  borders?: string[];
 }
 
 function CountryCardDetails() {
@@ -46,7 +48,7 @@ function CountryCardDetails() {
   const { id } = useParams();
   const countries = useSelector(selectCountries);
   const [country, setCountry] = useState<Country | null>(null);
-  const dispatch: ThunkDispatch<any, any, any> = useDispatch();
+  const dispatch = useAppDispatch();
   const isFinishedLoading = useSelector(selectIsFulfilled);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -90,7 +92,7 @@ function CountryCardDetails() {
     navigate(-1);
   }
 
-  function handleClick(e: Event) {
+  function handleClick(e: React.MouseEvent<HTMLElement>) {
     let text: string | null = (e.currentTarget as Element).textContent;
     console.log("handleClick text content -> " + text);
     navigate(`/${text?.replaceAll(/ /g, "-")}`);

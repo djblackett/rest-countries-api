@@ -1,4 +1,4 @@
-export const countryMap = {
+export const countryMap: any = {
   AFG: "Afghanistan",
   ALA: "Åland Islands",
   ALB: "Albania",
@@ -250,3 +250,7 @@ export const countryMap = {
   ZMB: "Zambia",
   ZWE: "Zimbabwe",
 };
+
+// export const countryMap = () => {
+//   return new Map(Object.entries(countryCodes));
+// };

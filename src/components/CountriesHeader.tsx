@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toggleColorMode } from "../features/colorMode/colorModeSlice";
+import IonIcon from "@reacticons/ionicons";
 
 const Header = styled.nav`
   width: inherit;
@@ -34,11 +35,10 @@ const Home = styled.p`
 `;
 
 const Button = styled.div.attrs({
-  tabIndex: "0",
+  tabIndex: 0,
 })`
   background: transparent;
   border: none;
-  /* outline: none; */
   color: ${({ theme }) => theme.text};
   font-size: 18px;
   font-weight: bold;
@@ -50,10 +50,10 @@ const Button = styled.div.attrs({
   cursor: pointer;
 `;
 
-function CountriesHeader(props) {
+function CountriesHeader() {
   const dispatch = useDispatch();
 
-  const themeTogglerEnter = (e) => {
+  const themeTogglerEnter = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.charCode === 13 || e.keyCode === 13) {
       dispatch(toggleColorMode);
     }
@@ -65,9 +65,9 @@ function CountriesHeader(props) {
       </Link>
       <Button
         onClick={() => dispatch(toggleColorMode())}
-        onKeyPress={() => themeTogglerEnter()}
+        onKeyPress={(e) => themeTogglerEnter(e)}
       >
-        <ion-icon name="moon-outline"></ion-icon>
+        <IonIcon name="moon-outline"></IonIcon>
         <p>Dark Mode</p>
       </Button>
     </Header>

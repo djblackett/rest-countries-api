@@ -19,7 +19,13 @@ export const InfoEntry = styled.div`
   margin: 5px 0;
 `;
 
-function CardInfoEntry(props) {
+interface Props {
+  text: string;
+  value: string;
+  leftMargin?: string;
+}
+
+function CardInfoEntry(props: Props) {
   return (
     <InfoEntry style={{ marginLeft: props.leftMargin }}>
       <InfoSpan>{props.text}</InfoSpan>
