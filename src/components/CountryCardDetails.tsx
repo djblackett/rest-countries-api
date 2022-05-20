@@ -20,26 +20,48 @@ import { BorderCountries } from "./BorderCountries";
 import CardInfoEntry from "./CardInfoEntry";
 import { NoMatch } from "./NoMatch";
 import { CircleLoader } from "react-spinners";
+import IonIcon from "@reacticons/ionicons";
+import { AsyncThunk, ThunkDispatch } from "@reduxjs/toolkit";
 
-function numberWithCommas(x) {
+function numberWithCommas(x: number) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ", ");
+}
+
+interface Country {
+  name: string;
+  nativeName: string;
+  numericCode: number;
+  languages: string[];
+  currencies: { name: string };
+  population: number;
+  topLevelDomain: string[];
+  flags: { png: string };
+  region: string;
+  subregion: string;
+  capital: string;
 }
 
 function CountryCardDetails() {
   const navigate = useNavigate();
   const { id } = useParams();
   const countries = useSelector(selectCountries);
-  const [country, setCountry] = useState(null);
-  const dispatch = useDispatch();
+  const [country, setCountry] = useState<Country | null>(null);
+  const dispatch: ThunkDispatch<any, any, any> = useDispatch();
   const isFinishedLoading = useSelector(selectIsFulfilled);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  function getCountryByName(id) {
+  function getCountryByName(id: string | undefined) {
     // changes dashes to spaces
-    let nameWithSpaces = id.replaceAll(/-/g, " ");
+    let nameWithSpaces: string;
+
+    if (id) {
+      nameWithSpaces = id.replaceAll(/-/g, " ");
+    }
+
     let result = countries.find(
-      (country) => country.name.toLowerCase() === nameWithSpaces.toLowerCase()
+      (country: any) =>
+        country.name.toLowerCase() === nameWithSpaces.toLowerCase()
     );
 
     setIsLoading(false);
@@ -48,7 +70,7 @@ function CountryCardDetails() {
 
   useEffect(() => {
     if (!countries) {
-      dispatch(getCountries);
+      dispatch(getCountries());
     }
 
     let timer = setTimeout(() => {
@@ -68,28 +90,27 @@ function CountryCardDetails() {
     navigate(-1);
   }
 
-  function handleClick(e) {
-    let text = e.target.textContent;
+  function handleClick(e: Event) {
+    let text: string | null = (e.currentTarget as Element).textContent;
     console.log("handleClick text content -> " + text);
-    navigate(`/${text.replaceAll(/ /g, "-")}`);
+    navigate(`/${text?.replaceAll(/ /g, "-")}`);
   }
 
   const imgStyles = {
     height: "100%",
     width: "100%",
     display: "block",
-    boxSizing: "border-box",
     src: "url(${country.flags.png}) no-repeat",
   };
 
   return (
     <Container>
       <BackButton onClick={onDismiss}>
-        <ion-icon name="arrow-back-outline"></ion-icon>
+        <IonIcon name="arrow-back-outline"></IonIcon>
         <p>Back</p>
       </BackButton>
 
-      <CircleLoader loading={isLoading} size={200} height="100vh" />
+      <CircleLoader loading={isLoading} size={200} />
 
       {!country && error && <NoMatch />}
 
@@ -130,7 +151,7 @@ function CountryCardDetails() {
                 value={
                   country.currencies
                     ? Object.values(country.currencies)
-                        .map((x) => x.name)
+                        .map((x: any) => x.name)
                         .join(",")
                     : ""
                 }
@@ -138,7 +159,7 @@ function CountryCardDetails() {
               <CardInfoEntry
                 text={"Languages: "}
                 value={country.languages
-                  .map((language) => language.name)
+                  .map((language: any) => language.name)
                   .join(", ")}
               />
             </InfoPane>

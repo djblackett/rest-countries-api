@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import CardInfoEntry from "./CardInfoEntry";
 
-function numberWithCommas(x) {
+function numberWithCommas(x: number) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
@@ -48,7 +48,7 @@ const CountryName = styled.h1`
   font-size: 1.4em;
 `;
 
-function CountryCard(props) {
+function CountryCard(props: any) {
   const country = props.country;
 
   const imgStyle = {

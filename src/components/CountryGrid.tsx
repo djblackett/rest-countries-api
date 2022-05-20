@@ -11,6 +11,17 @@ import { CountryGridContainer } from "../css/CountryGridStyles";
 import SearchBar from "./SearchBar";
 import DropDown from "./DropDown";
 
+interface Country {
+  name: string;
+  nativeName: string;
+  numericCode: number;
+  languages: string[];
+  currencies: string[];
+  population: number;
+  topLevelDomain: string[];
+  flags: string[];
+}
+
 export function CountryGrid() {
   const [searchParams, setSearchParams] = useSearchParams();
   const countries = useSelector(selectCountries);
