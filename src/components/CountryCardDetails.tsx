@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useAppDispatch } from "../features/app/hooks";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -47,13 +47,13 @@ function CountryCardDetails() {
   const navigate = useNavigate();
   const { id } = useParams();
   const countries = useSelector(selectCountries);
-  const [country, setCountry] = useState<Country | null>(null);
+  const [country, setCountry] = useState<Country | undefined | null>(null);
   const dispatch = useAppDispatch();
   const isFinishedLoading = useSelector(selectIsFulfilled);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  function getCountryByName(id: string | undefined) {
+  function getCountryByName(id: string | undefined): Country | undefined {
     // changes dashes to spaces
     let nameWithSpaces: string;
 
@@ -62,7 +62,7 @@ function CountryCardDetails() {
     }
 
     let result = countries.find(
-      (country: any) =>
+      (country: Country) =>
         country.name.toLowerCase() === nameWithSpaces.toLowerCase()
     );
 

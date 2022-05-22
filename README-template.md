@@ -53,12 +53,10 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 ### Built with
 
 - Semantic HTML5 markup
-- CSS custom properties
 - Flexbox
 - CSS Grid
-- Mobile-first workflow
 - [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
+- [CreateReactApp](https://create-react-app.dev/) - React framework
 - [Styled Components](https://styled-components.com/) - For styles
 
 **Note: These are just examples. Delete this note and replace the list above with your own choices**
@@ -91,7 +89,7 @@ If you want more help with writing markdown, we'd recommend checking out [The Ma
 
 Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
 
-Typescript was added after the project was already completed, which is a pretty artificial way to use Typescript. I would like to continue learning and using Typescript, but from the very beginning of a project to reap most of its benefits. There are a few places where I struggled with the type definitions and ended up resorting to `any` as the type, which is certainly not ideal, so I hope to fill in those gaps in future projects and make sure I'm using Typescript to its fullest extent. 
+Typescript was added after the project was already completed, which is a pretty artificial way to use Typescript. I would like to continue learning and using Typescript, but from the very beginning of a project to reap most of its benefits. There are a few places where I struggled with the type definitions and ended up resorting to `any` as the type, which is certainly not ideal, so I hope to fill in those gaps in future projects and make sure I'm using Typescript to its fullest extent. Using typescript with redux-toolkit and asyncThunks was a challenge and I'm not sure I really understand the type annotation on `builder` in the `extraReducers` property. 
 
 **Note: Delete this note and the content within this section and replace with your own plans for continued development.**
 

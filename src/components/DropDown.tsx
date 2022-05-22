@@ -41,7 +41,7 @@ const DropDownContainer = styled("div")`
 `;
 
 const DropDownHeader = styled.div.attrs({
-  tabIndex: "0",
+  tabIndex: 0,
 })`
   display: flex;
   justify-content: space-between;
@@ -96,17 +96,17 @@ const options = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
 
 export default function DropDown() {
   const [isOpen, setIsOpen] = useState(false);
-  const [regionState, setRegionState] = useState(null);
+  const [regionState, setRegionState] = useState<string>("Filter by region");
   const [searchParams, setSearchParams] = useSearchParams();
 
   const toggling = () => setIsOpen(!isOpen);
-  const togglingButton = (e) => {
+  const togglingButton = (e: React.KeyboardEvent) => {
     if (e.charCode === 13 || e.keyCode === 13) {
       setIsOpen(!isOpen);
     }
   };
 
-  const onOptionClicked = (region) => () => {
+  const onOptionClicked = (region: string) => () => {
     setRegionState(region);
     setIsOpen(false);
     if (regionState !== "Filter by Region") {
@@ -118,13 +118,13 @@ export default function DropDown() {
 
   // todo make the drop down from scratch so I can style it correctly
 
-  function handleChange(event) {
-    if (regionState && regionState !== "Filter by Region") {
-      setSearchParams({ regionState });
-    } else {
-      setSearchParams({});
-    }
-  }
+  // function handleChange(event) {
+  //   if (regionState && regionState !== "Filter by Region") {
+  //     setSearchParams({ regionState });
+  //   } else {
+  //     setSearchParams({});
+  //   }
+  // }
 
   return (
     <Main>
