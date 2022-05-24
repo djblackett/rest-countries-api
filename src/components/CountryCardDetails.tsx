@@ -60,7 +60,7 @@ function CountryCardDetails() {
       nameWithSpaces = id.replaceAll(/-/g, " ");
     }
 
-    let result = countries.find(
+    const result = countries.find(
       (country: Country) =>
         country.name.toLowerCase() === nameWithSpaces.toLowerCase()
     );
@@ -74,7 +74,7 @@ function CountryCardDetails() {
       dispatch(getCountries());
     }
 
-    let timer = setTimeout(() => {
+    const timer = setTimeout(() => {
       if (!country) {
         setError(true);
       }
@@ -92,7 +92,7 @@ function CountryCardDetails() {
   }
 
   function handleClick(e: React.MouseEvent<HTMLElement>) {
-    let text: string | null = (e.currentTarget as Element).textContent;
+    const text: string | null = (e.currentTarget as Element).textContent;
     console.log("handleClick text content -> " + text);
     navigate(`/${text?.replaceAll(/ /g, "-")}`);
   }

@@ -52,7 +52,7 @@ const options = {
     //   });
     // },
   },
-  extraReducers: (builder: { addCase: (arg0: AsyncThunkFulfilledActionCreator<Country[], void, {}> | AsyncThunkPendingActionCreator<void, {}> | AsyncThunkRejectedActionCreator<void, {}>, arg1: { (state: any, action: any): void; (state: any, action: any): void; (state: any, action: any): void; }) => void; }) => {
+  extraReducers: (builder: { addCase: (arg0: AsyncThunkFulfilledActionCreator<Country[], void, unknown> | AsyncThunkPendingActionCreator<void, unknown> | AsyncThunkRejectedActionCreator<void, unknown>, arg1: { (state: any, action: any): void; (state: any, action: any): void; (state: any, action: any): void; }) => void; }) => {
     builder.addCase(getCountries.fulfilled, (state, action) => {
       state.isFetching = false;
       state.fetchingError = false;
