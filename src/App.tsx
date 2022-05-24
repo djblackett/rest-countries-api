@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import CountryCardDetails from "./components/CountryCardDetails";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./css/globalStyles";
@@ -21,7 +21,7 @@ function App() {
     dispatch(getCountries());
   }, []);
 
-  let routes: RouteObject[] = [
+  const routes: RouteObject[] = [
     {
       path: "/",
       element: <Layout />,
@@ -38,7 +38,7 @@ function App() {
     },
   ];
 
-  let element = useRoutes(routes);
+  const element = useRoutes(routes);
 
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>

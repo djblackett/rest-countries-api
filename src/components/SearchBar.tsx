@@ -82,7 +82,7 @@ function SearchBar() {
       <Input
         value={searchParams.get("filter") || ""}
         onChange={(event) => {
-          let filter = event.target.value;
+          const filter = event.target.value;
           if (filter) {
             setSearchParams({ filter });
           } else {

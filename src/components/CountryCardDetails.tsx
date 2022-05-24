@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useAppDispatch } from "../features/app/hooks";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -22,7 +22,6 @@ import CardInfoEntry from "./CardInfoEntry";
 import { NoMatch } from "./NoMatch";
 import { CircleLoader } from "react-spinners";
 import IonIcon from "@reacticons/ionicons";
-import { AsyncThunk, ThunkDispatch } from "@reduxjs/toolkit";
 
 function numberWithCommas(x: number) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ", ");

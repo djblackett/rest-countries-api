@@ -11,16 +11,16 @@ import { CountryGridContainer } from "../css/CountryGridStyles";
 import SearchBar from "./SearchBar";
 import DropDown from "./DropDown";
 
-interface Country {
-  name: string;
-  nativeName: string;
-  numericCode: number;
-  languages: string[];
-  currencies: string[];
-  population: number;
-  topLevelDomain: string[];
-  flags: string[];
-}
+// interface Country {
+//   name: string;
+//   nativeName: string;
+//   numericCode: number;
+//   languages: string[];
+//   currencies: string[];
+//   population: number;
+//   topLevelDomain: string[];
+//   flags: string[];
+// }
 
 export function CountryGrid() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -46,21 +46,21 @@ export function CountryGrid() {
       <DropDown />
 
       {countries
-        .filter((country: any) => {
-          let filter = searchParams.get("filter");
+        .filter((country) => {
+          const filter = searchParams.get("filter");
           if (!filter) return true;
-          let name = country.name.toLowerCase();
+          const name = country.name.toLowerCase();
           return name.startsWith(filter.toLowerCase());
         })
 
-        .filter((country: any) => {
-          let region = searchParams.get("region");
+        .filter((country) => {
+          const region = searchParams.get("region");
           if (!region || region === "All") return true;
-          let regionName = country.region;
+          const regionName = country.region;
           return region === regionName;
         })
 
-        .map((country: any, index: number) => {
+        .map((country, index: number) => {
           return (
             <Link
               key={index}
