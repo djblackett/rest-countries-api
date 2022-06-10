@@ -1,19 +1,26 @@
 import "./App.css";
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import { useSelector } from "react-redux";
-import CountryCardDetails from "./components/CountryCardDetails";
+
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./css/globalStyles";
 import { lightTheme, darkTheme } from "./css/Themes";
 import CountriesHeader from "./components/CountriesHeader";
 import { getCountries } from "./features/countries/countriesSlice";
 import { selectColorMode } from "./features/colorMode/colorModeSlice";
-import { CountryGrid } from "./components/CountryGrid";
+
 import { RouteObject, useRoutes } from "react-router-dom";
 import Layout from "./components/Layout";
 import { useAppDispatch } from "./features/app/hooks";
+import { CountryGridWindow } from "./components/CountryGridWindow";
+import ToolBar from "./components/ToolBar";
 
-function App() {
+const CountryGrid = React.lazy(() => import("./components/CountryGrid"));
+const CountryCardDetails = React.lazy(
+  () => import("./components/CountryCardDetails")
+);
+
+const App = React.memo(() => {
   const theme = useSelector(selectColorMode);
   const dispatch = useAppDispatch();
 
@@ -26,13 +33,20 @@ function App() {
       path: "/",
       element: <Layout />,
       children: [
+        // { index: true, element: <ToolBar /> },
         {
           index: true,
           element: <CountryGrid />,
+          // element: <CountryGridWindow />,
         },
+
         {
           path: ":id",
-          element: <CountryCardDetails />,
+          element: (
+            <Suspense fallback={<p>Loading</p>}>
+              <CountryCardDetails />
+            </Suspense>
+          ),
         },
       ],
     },
@@ -50,6 +64,6 @@ function App() {
       </div>
     </ThemeProvider>
   );
-}
+});
 
 export default App;

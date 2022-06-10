@@ -1,6 +1,6 @@
 # Frontend Mentor - REST Countries API with color theme switcher solution
 
-This is a solution to the [REST Countries API with color theme switcher challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+This is a solution to the [REST Countries API with color theme switcher challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
 ## Table of contents
 
@@ -37,7 +37,7 @@ Users should be able to:
 
 Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
 
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
+Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it.
 
 Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
 
@@ -45,10 +45,21 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [Add solution URL here](https://github.com/djblackett/rest-countries-api)
+- Live Site URL: [Add live site URL here](https://djblackett.github.io/rest-countries-api/)
 
 ## My process
+
+This project began as something to build while learning Styled Components and React Router. I had already built projects with React and Redux, so this was the next step. After finishing the project, I decided to go back to it to practice/learn new skills. I converted the project files to Typescript. Also, the main page load was a bit slow, so I looked into ways to optimize it.
+
+#### Optimizations
+
+- I upgraded React to version 18 to see if the new concurrency features would help
+- I optimized the API call by adding query params that filtered the data to only include the fields I actually needed.
+This reduced the response size significantly.
+- recreated the grid with `react-window` to only render countries as they are needed while scrolling.
+- created the CountryCards with `React.memo`
+- used `useMemo` hook to memoize expensive operations (filtering the country list)
 
 ### Built with
 
@@ -58,6 +69,10 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 - [React](https://reactjs.org/) - JS library
 - [CreateReactApp](https://create-react-app.dev/) - React framework
 - [Styled Components](https://styled-components.com/) - For styles
+- [React Router](https://reactrouter.com/) - Client-side routing
+- [Typescript](https://www.typescriptlang.org/) - Static Type Checking
+- [Redux Toolkit](https://redux-toolkit.js.org/) - Global State Management
+- [react-window](https://react-window.vercel.app/) - Grid Virtualization
 
 **Note: These are just examples. Delete this note and replace the list above with your own choices**
 
@@ -70,11 +85,13 @@ To see how you can add code snippets, see below:
 ```html
 <h1>Some HTML code I'm proud of</h1>
 ```
+
 ```css
 .proud-of-this-css {
   color: papayawhip;
 }
 ```
+
 ```js
 const proudOfThisFunc = () => {
   console.log('🎉')
@@ -89,7 +106,7 @@ If you want more help with writing markdown, we'd recommend checking out [The Ma
 
 Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
 
-Typescript was added after the project was already completed, which is a pretty artificial way to use Typescript. I would like to continue learning and using Typescript, but from the very beginning of a project to reap most of its benefits. There are a few places where I struggled with the type definitions and ended up resorting to `any` as the type, which is certainly not ideal, so I hope to fill in those gaps in future projects and make sure I'm using Typescript to its fullest extent. Using typescript with redux-toolkit and asyncThunks was a challenge and I'm not sure I really understand the type annotation on `builder` in the `extraReducers` property. 
+Typescript was added after the project was already completed, which is a pretty artificial way to use Typescript. I would like to continue learning and using Typescript, but from the very beginning of a project to reap most of its benefits. There are a few places where I struggled with the type definitions and ended up resorting to `any` as the type, which is certainly not ideal, so I hope to fill in those gaps in future projects and make sure I'm using Typescript to its fullest extent. Using typescript with redux-toolkit and asyncThunks was a challenge and I'm not sure I really understand the type annotation on `builder` in the `extraReducers` property.
 
 **Note: Delete this note and the content within this section and replace with your own plans for continued development.**
 

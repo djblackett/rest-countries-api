@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import IonIcon from "@reacticons/ionicons";
 import { useSearchParams } from "react-router-dom";
@@ -82,6 +82,7 @@ const ListItem = styled.li.attrs({
 })`
   list-style: none;
   margin-bottom: 0.8em;
+  cursor: pointer;
 `;
 
 const ItemButton = styled.button`
@@ -89,32 +90,37 @@ const ItemButton = styled.button`
   width: 100%;
   background-color: transparent;
   border: none;
+  cursor: pointer;
   color: ${({ theme }) => theme.text};
 `;
 
 const options = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
 
-export default function DropDown() {
+const DropDown = React.memo(() => {
   const [isOpen, setIsOpen] = useState(false);
   const [regionState, setRegionState] = useState<string>("Filter by region");
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const toggling = () => setIsOpen(!isOpen);
-  const togglingButton = (e: React.KeyboardEvent) => {
+  const toggling = useCallback(() => setIsOpen(!isOpen), []);
+
+  const togglingButton = useCallback((e: React.KeyboardEvent) => {
     if (e.charCode === 13 || e.keyCode === 13) {
       setIsOpen(!isOpen);
     }
-  };
+  }, []);
 
-  const onOptionClicked = (region: string) => () => {
-    setRegionState(region);
-    setIsOpen(false);
-    if (regionState !== "Filter by Region") {
-      setSearchParams({ region });
-    } else {
-      setSearchParams({});
-    }
-  };
+  const onOptionClicked = useCallback(
+    (region: string) => () => {
+      setRegionState(region);
+      setIsOpen(false);
+      if (regionState !== "Filter by Region") {
+        setSearchParams({ region });
+      } else {
+        setSearchParams({});
+      }
+    },
+    []
+  );
 
   // todo make the drop down from scratch so I can style it correctly
 
@@ -137,7 +143,7 @@ export default function DropDown() {
           <DropDownListContainer>
             <DropDownList>
               {options.map((option, index) => (
-                <ListItem>
+                <ListItem key={index}>
                   <ItemButton onClick={onOptionClicked(option)} key={index}>
                     {option}
                   </ItemButton>
@@ -149,4 +155,6 @@ export default function DropDown() {
       </DropDownContainer>
     </Main>
   );
-}
+});
+
+export default DropDown;

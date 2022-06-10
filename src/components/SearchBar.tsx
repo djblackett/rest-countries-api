@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import IonIcon from "@reacticons/ionicons";
 import styled from "styled-components";
 import { useSearchParams } from "react-router-dom";
@@ -74,24 +74,28 @@ export const SearchFilterContainer = styled.div`
   width: 300px;
 `;
 
-function SearchBar() {
+const SearchBar = React.memo(() => {
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleChange = useCallback((event: any) => {
+    const filter = event.target.value;
+    if (filter) {
+      setSearchParams({ filter });
+    } else {
+      setSearchParams({});
+    }
+  }, []);
+
+  const value = useMemo(() => {
+    return searchParams.get("filter") || "";
+  }, [searchParams]);
+
   return (
     <InputContainer>
       <IonIcon name="search-circle-outline" size="large"></IonIcon>
-      <Input
-        value={searchParams.get("filter") || ""}
-        onChange={(event) => {
-          const filter = event.target.value;
-          if (filter) {
-            setSearchParams({ filter });
-          } else {
-            setSearchParams({});
-          }
-        }}
-      />
+      <Input value={value} onChange={handleChange} />
     </InputContainer>
   );
-}
+});
 
 export default SearchBar;

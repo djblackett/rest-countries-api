@@ -13,7 +13,7 @@ interface Props {
   handleClick: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
-export function BorderCountries(props: Props) {
+function BorderCountries(props: Props) {
   const isFulfilled = useSelector(selectIsFulfilled);
 
   if (isFulfilled) {
@@ -36,3 +36,5 @@ export function BorderCountries(props: Props) {
     return <h1>Loading Border Countries</h1>;
   }
 }
+
+export default BorderCountries;

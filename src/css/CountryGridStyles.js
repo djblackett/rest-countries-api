@@ -6,8 +6,9 @@ export const CountryGridContainer = styled.div`
   display: grid;
   gap: 30px;
   text-decoration: none;
-  grid-template: 50px 100px repeat(8, 1fr) / 1fr;
+  grid-template: 50px 100px 1fr/ 1fr;
   align-items: start;
+
   /* align-content: center; */
 
   @media (min-width: 600px) {
@@ -22,8 +23,11 @@ export const CountryGridContainer = styled.div`
   }
 
   @media (min-width: 1200px) {
-    grid-template: 100px repeat(3, 1fr) / repeat(4, 250px);
-    margin-left: 220px;
-    margin-right: 220px;
+    width: 100%;
+    max-width: 100vw;
+
+    grid-template: 100px / repeat(4, 250px);
+    /* margin-left: 220px; */
+    /* margin-right: 220px; */
   }
 `;

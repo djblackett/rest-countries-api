@@ -13,7 +13,7 @@ export const getCountries = createAsyncThunk<Country[]>(
       return JSON.parse(savedCountries);
       // otherwise
     } else {
-      const response = await fetch("https://restcountries.com/v2/all");
+      const response = await fetch("https://restcountries.com/v2/all?fields=name,nativeName,currencies,numericCode,languages,population,topLevelDomain,flags,region,subregion,capital,borders");
       const json = await response.json();
 
       // localStorage.setItem("savedCountries", JSON.stringify(json));

@@ -1,3 +1,4 @@
+import React from "react";
 import { Outlet } from "react-router";
 import styled from "styled-components";
 
@@ -6,12 +7,12 @@ const Container = styled.div`
   height: 100%;
 `;
 
-function Layout() {
+const Layout = React.memo(() => {
   return (
     <Container>
       <Outlet />
     </Container>
   );
-}
+});
 
 export default Layout;

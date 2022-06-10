@@ -1,10 +1,6 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
 import CardInfoEntry from "./CardInfoEntry";
-
-function numberWithCommas(x: number) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
 
 const CardContainer = styled.div`
   display: flex;
@@ -48,7 +44,7 @@ const CountryName = styled.h1`
   font-size: 1.4em;
 `;
 
-function CountryCard(props: any) {
+const CountryCard = React.memo((props: any) => {
   const country = props.country;
 
   const imgStyle = {
@@ -58,6 +54,12 @@ function CountryCard(props: any) {
     outline: "none",
     borderImageWidth: "0",
   };
+
+  const numberWithCommas = useCallback((x: number) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }, []);
+
+  // console.log(country.name + "card rendered");
 
   return (
     <CardContainer>
@@ -84,6 +86,6 @@ function CountryCard(props: any) {
       </CardInfoWrapper>
     </CardContainer>
   );
-}
+});
 
 export default CountryCard;

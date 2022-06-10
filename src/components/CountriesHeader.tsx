@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -50,14 +50,18 @@ const Button = styled.div.attrs({
   cursor: pointer;
 `;
 
-function CountriesHeader() {
+const CountriesHeader = React.memo(() => {
   const dispatch = useDispatch();
 
-  const themeTogglerEnter = (e: React.KeyboardEvent<HTMLElement>) => {
-    if (e.charCode === 13 || e.keyCode === 13) {
-      dispatch(toggleColorMode);
-    }
-  };
+  const themeTogglerEnter = useCallback(
+    (e: React.KeyboardEvent<HTMLElement>) => {
+      if (e.charCode === 13 || e.keyCode === 13) {
+        dispatch(toggleColorMode);
+      }
+    },
+    []
+  );
+
   return (
     <Header>
       <Link to="/" style={{ textDecoration: "none" }}>
@@ -72,6 +76,6 @@ function CountriesHeader() {
       </Button>
     </Header>
   );
-}
+});
 
 export default CountriesHeader;

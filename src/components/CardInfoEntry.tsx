@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import React from "react";
 
 export const InfoSpan = styled.span`
   font-weight: 600;
@@ -25,13 +26,13 @@ interface Props {
   leftMargin?: string;
 }
 
-function CardInfoEntry(props: Props) {
+const CardInfoEntry = React.memo((props: Props) => {
   return (
     <InfoEntry style={{ marginLeft: props.leftMargin }}>
       <InfoSpan>{props.text}</InfoSpan>
       <InfoText>{props.value}</InfoText>
     </InfoEntry>
   );
-}
+});
 
 export default CardInfoEntry;

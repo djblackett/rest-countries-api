@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, Suspense } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../features/app/hooks";
 import { useNavigate, useParams } from "react-router-dom";
@@ -17,11 +17,13 @@ import {
   BackButton,
   BorderSpan,
 } from "../css/CountryCardDetailsStyles";
-import { BorderCountries } from "./BorderCountries";
+
 import CardInfoEntry from "./CardInfoEntry";
 import { NoMatch } from "./NoMatch";
 import { CircleLoader } from "react-spinners";
 import IonIcon from "@reacticons/ionicons";
+import BorderCountries from "./BorderCountries";
+// const BorderCountries = React.lazy(() => import("./BorderCountries"));
 
 function numberWithCommas(x: number) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ", ");
@@ -42,7 +44,7 @@ export interface Country {
   borders?: string[];
 }
 
-function CountryCardDetails() {
+const CountryCardDetails = React.memo(() => {
   const navigate = useNavigate();
   const { id } = useParams();
   const countries = useSelector(selectCountries);
@@ -91,11 +93,11 @@ function CountryCardDetails() {
     navigate(-1);
   }
 
-  function handleClick(e: React.MouseEvent<HTMLElement>) {
+  const handleClick = useCallback((e: React.MouseEvent<HTMLElement>) => {
     const text: string | null = (e.currentTarget as Element).textContent;
     console.log("handleClick text content -> " + text);
     navigate(`/${text?.replaceAll(/ /g, "-")}`);
-  }
+  }, []);
 
   const imgStyles = {
     height: "100%",
@@ -166,6 +168,7 @@ function CountryCardDetails() {
             </InfoPane>
             <Footer>
               <BorderSpan>Border Countries: </BorderSpan>
+
               <BorderCountries country={country} handleClick={handleClick} />
             </Footer>
           </InfoContainer>
@@ -173,6 +176,6 @@ function CountryCardDetails() {
       )}
     </Container>
   );
-}
+});
 
 export default CountryCardDetails;
