@@ -58,10 +58,6 @@ const Button = styled.div.attrs({
   &:hover {
     filter: brightness(75%) saturate(120%);
   }
-
-  &:focus {
-    filter: brightness(75%) saturate(120%);
-  }
 `;
 
 const HomeContainer = styled.div`
