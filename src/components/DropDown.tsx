@@ -1,7 +1,15 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import IonIcon from "@reacticons/ionicons";
 import { useSearchParams } from "react-router-dom";
+import { useAppDispatch } from "../features/app/hooks";
+import {
+  setFilter,
+  setRegion,
+  selectFilter,
+  selectRegion,
+} from "../features/filters/filtersSlice";
+import { useSelector } from "react-redux";
 
 const Main = styled("div")`
   align-self: start;
@@ -63,9 +71,8 @@ const DropDownListContainer = styled("div")``;
 const DropDownList = styled("ul")`
   padding: 0;
   margin: 0;
-  padding-left: 1em;
   background-color: ${({ theme }) => theme.background};
-  padding-bottom: 5px;
+  /* padding-bottom: 5px; */
   box-sizing: border-box;
   border-radius: 4px;
   color: ${({ theme }) => theme.text};
@@ -77,12 +84,17 @@ const DropDownList = styled("ul")`
   }
 `;
 
-const ListItem = styled.li.attrs({
-  // tabIndex: "0",
-})`
+const ListItem = styled.li`
   list-style: none;
-  margin-bottom: 0.8em;
+  height: 100%;
+  width: 100%;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
   cursor: pointer;
+  background-color: ${({ theme }) => theme.background};
+  &:hover {
+    filter: brightness(80%);
+  }
 `;
 
 const ItemButton = styled.button`
@@ -98,45 +110,39 @@ const options = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
 
 const DropDown = React.memo(() => {
   const [isOpen, setIsOpen] = useState(false);
-  const [regionState, setRegionState] = useState<string>("Filter by region");
+  const region = useSelector(selectRegion);
+  const filter = useSelector(selectFilter);
+  const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const toggling = useCallback(() => setIsOpen(!isOpen), []);
+  console.log(filter);
 
-  const togglingButton = useCallback((e: React.KeyboardEvent) => {
+  const toggling = () => setIsOpen(!isOpen);
+
+  const togglingButton = (e: React.KeyboardEvent) => {
     if (e.charCode === 13 || e.keyCode === 13) {
       setIsOpen(!isOpen);
     }
-  }, []);
 
-  const onOptionClicked = useCallback(
-    (region: string) => () => {
-      setRegionState(region);
+    if (e.charCode === 27 || e.keyCode === 27) {
       setIsOpen(false);
-      if (regionState !== "Filter by Region") {
-        setSearchParams({ region });
-      } else {
-        setSearchParams({});
-      }
-    },
-    []
-  );
+    }
+  };
 
-  // todo make the drop down from scratch so I can style it correctly
+  const onOptionClicked = (regionOption: string) => () => {
+    dispatch(setRegion(regionOption));
+    setIsOpen(false);
+  };
 
-  // function handleChange(event) {
-  //   if (regionState && regionState !== "Filter by Region") {
-  //     setSearchParams({ regionState });
-  //   } else {
-  //     setSearchParams({});
-  //   }
-  // }
+  // useEffect(() => {
+  //   setSearchParams({ region, filter });
+  // }, [region, filter]);
 
   return (
     <Main>
       <DropDownContainer>
         <DropDownHeader onClick={toggling} onKeyPress={togglingButton}>
-          {regionState || "Filter by Region"}
+          {region || "Filter by Region"}
           <IonIcon name="chevron-down-outline"></IonIcon>
         </DropDownHeader>
         {isOpen && (

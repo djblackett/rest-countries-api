@@ -12,8 +12,8 @@ import { selectColorMode } from "./features/colorMode/colorModeSlice";
 import { RouteObject, useRoutes } from "react-router-dom";
 import Layout from "./components/Layout";
 import { useAppDispatch } from "./features/app/hooks";
-import { CountryGridWindow } from "./components/CountryGridWindow";
-import ToolBar from "./components/ToolBar";
+// import { CountryGridWindow } from "./components/CountryGridWindow";
+// import ToolBar from "./components/ToolBar";
 
 const CountryGrid = React.lazy(() => import("./components/CountryGrid"));
 const CountryCardDetails = React.lazy(
@@ -33,11 +33,11 @@ const App = React.memo(() => {
       path: "/",
       element: <Layout />,
       children: [
-        // { index: true, element: <ToolBar /> },
+        // { index: true, element: <ToolBar /> },  Experiemental feature for putting the filters outisde of the CountryGrid
         {
           index: true,
           element: <CountryGrid />,
-          // element: <CountryGridWindow />,
+          // element: <CountryGridWindow />,     Experimental feature for use with list/grid virtualization
         },
 
         {

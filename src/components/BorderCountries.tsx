@@ -13,6 +13,7 @@ interface Props {
   handleClick: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
+// maps through a country's array of border countries and displays them
 function BorderCountries(props: Props) {
   const isFulfilled = useSelector(selectIsFulfilled);
 

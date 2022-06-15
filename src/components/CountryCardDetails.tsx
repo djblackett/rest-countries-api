@@ -93,6 +93,7 @@ const CountryCardDetails = React.memo(() => {
     navigate(-1);
   }
 
+  // passed to BorderCountries to view border country when clicked
   const handleClick = useCallback((e: React.MouseEvent<HTMLElement>) => {
     const text: string | null = (e.currentTarget as Element).textContent;
     console.log("handleClick text content -> " + text);

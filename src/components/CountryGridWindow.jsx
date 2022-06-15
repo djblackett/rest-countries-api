@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
-import {MemoizedCountryCard} from "./CountryCard";
+import  CountryCard  from "./CountryCard";
 import { Link, useSearchParams } from "react-router-dom";
 import {
   selectCountries,
@@ -11,16 +11,16 @@ import { CountryGridContainer } from "../css/CountryGridStyles";
 import SearchBar from "./SearchBar";
 import DropDown from "./DropDown";
 import { FixedSizeGrid as Grid } from "react-window";
-import AutoSizer from 'react-virtualized-auto-sizer'
+import AutoSizer from "react-virtualized-auto-sizer";
 
 const GUTTER_SIZE = 50;
+
 const COLUMN_WIDTH = 300;
 const ROW_HEIGHT = 375;
 let numberOfColumns = 4;
 let numberOfGutters = numberOfColumns + 1;
 
 //todo maybe use the new React useTransition or whatever to make a smooth transition from before initial load to after
-
 
 export function CountryGridWindow() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -29,10 +29,16 @@ export function CountryGridWindow() {
   const isFetching = useSelector(selectIsFetching);
   const fetchingError = useSelector(selectFetchingError);
 
-  const GridContainer = props => {
-  return <div className="centeredGrid" style={{display: "flex", justifyContent: "center"}} {...props} />;
-};
-  
+  const GridContainer = (props) => {
+    return (
+      <div
+        className="centeredGrid"
+        style={{ display: "flex", justifyContent: "center" }}
+        {...props}
+      />
+    );
+  };
+
   const filteredCountries = useMemo(() => {
     return countries
       .filter((country) => {
@@ -72,53 +78,53 @@ export function CountryGridWindow() {
       <CountryGridContainer>
         <SearchBar />
         <DropDown />
-      
-      <AutoSizer >
-          {({height, width}) => (
-      <Grid
-        useIsScrolling={true}
-        columnCount={4}
-        columnWidth={300}
-        height={height}
-        rowCount={95}
-        rowHeight={400}
-        width={width}
-        style={{justifyContent: 'center', justifySelf: 'center'}}
-        innerElementType={GridContainer}
-      >
-        {/* {console.log(filteredCountries)} */}
-        {({ columnIndex, rowIndex, style }) => {
-          const country =
-            filteredCountries[
-              getArrayIndexFromGridIndices(columnIndex, rowIndex)
-            ];
 
-          // eslint-disable-next-line no-undef
-          // console.log(country);
-          return (
-            <Link
-              key={country.numericCode + "-link"}
-              to={`/${country.name.replaceAll(/ /g, "-")}`}
-              // style={style}
-              style={{
-                ...style,
-                textDecoration: "none",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                // left: style.left + GUTTER_SIZE,
-                // top: style.top + GUTTER_SIZE,
-                width: style.width - GUTTER_SIZE,
-                height: style.height - GUTTER_SIZE
-              }}
+        <AutoSizer>
+          {({ height, width }) => (
+            <Grid
+              useIsScrolling={true}
+              columnCount={4}
+              columnWidth={300}
+              height={height}
+              rowCount={95}
+              rowHeight={400}
+              width={width}
+              style={{ justifyContent: "center", justifySelf: "center" }}
+              innerElementType={GridContainer}
             >
-              <MemoizedCountryCard country={country} key={country.numericCode} />
-            </Link>
-          );
-        }}
-      </Grid>
+              {/* {console.log(filteredCountries)} */}
+              {({ columnIndex, rowIndex, style }) => {
+                const country =
+                  filteredCountries[
+                    getArrayIndexFromGridIndices(columnIndex, rowIndex)
+                  ];
+
+                // eslint-disable-next-line no-undef
+                // console.log(country);
+                return (
+                  <Link
+                    key={country.numericCode + "-link"}
+                    to={`/${country.name.replaceAll(/ /g, "-")}`}
+                    // style={style}
+                    style={{
+                      ...style,
+                      textDecoration: "none",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      // left: style.left + GUTTER_SIZE,
+                      // top: style.top + GUTTER_SIZE,
+                      width: style.width - GUTTER_SIZE,
+                      height: style.height - GUTTER_SIZE,
+                    }}
+                  >
+                    <CountryCard country={country} key={country.numericCode} />
+                  </Link>
+                );
+              }}
+            </Grid>
           )}
-      </AutoSizer>
+        </AutoSizer>
       </CountryGridContainer>
     </>
   );

@@ -1,7 +1,14 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, startTransition, useTransition } from "react";
+import { useSelector } from "react-redux";
 import IonIcon from "@reacticons/ionicons";
 import styled from "styled-components";
 import { useSearchParams } from "react-router-dom";
+import { useAppDispatch } from "../features/app/hooks";
+import {
+  setFilter,
+  selectFilter,
+  selectRegion,
+} from "../features/filters/filtersSlice";
 
 export const InputContainer = styled.div`
   cursor: pointer;
@@ -76,24 +83,23 @@ export const SearchFilterContainer = styled.div`
 
 const SearchBar = React.memo(() => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const filter = useSelector(selectFilter);
+  const region = useSelector(selectRegion);
+  const dispatch = useAppDispatch();
+  const [isPending, startTransition] = useTransition();
 
   const handleChange = useCallback((event: any) => {
-    const filter = event.target.value;
-    if (filter) {
-      setSearchParams({ filter });
-    } else {
-      setSearchParams({});
-    }
+    startTransition(() => {
+      const inputText = event.target.value;
+      dispatch(setFilter(inputText));
+      // setSearchParams({ region: region, filter: inputText });
+    });
   }, []);
-
-  const value = useMemo(() => {
-    return searchParams.get("filter") || "";
-  }, [searchParams]);
 
   return (
     <InputContainer>
       <IonIcon name="search-circle-outline" size="large"></IonIcon>
-      <Input value={value} onChange={handleChange} />
+      <Input value={filter} onChange={handleChange} />
     </InputContainer>
   );
 });

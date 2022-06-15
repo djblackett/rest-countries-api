@@ -77,11 +77,6 @@ export const selectCountries = (state: RootState) => {
   return state.countries.countries;
 };
 
-// export const { createMap } = countriesSlice.actions;
-
-// export const selectMap = (state: RootState) => {
-//   return state.countries.countryMap;
-// };
 
 export const selectIsFetching = (state: RootState) => {
   return state.countries.isFetching;

@@ -26,6 +26,7 @@ interface Props {
   leftMargin?: string;
 }
 
+// A container for pieces of textual information
 const CardInfoEntry = React.memo((props: Props) => {
   return (
     <InfoEntry style={{ marginLeft: props.leftMargin }}>
