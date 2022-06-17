@@ -1,6 +1,6 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import  CountryCard  from "./CountryCard";
+import CountryCard from "./CountryCard";
 import { Link, useSearchParams } from "react-router-dom";
 import {
   selectCountries,
@@ -12,6 +12,7 @@ import SearchBar from "./SearchBar";
 import DropDown from "./DropDown";
 import { FixedSizeGrid as Grid } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
+import useWindowSize from "../hooks/useWindowSize";
 
 const GUTTER_SIZE = 50;
 
@@ -28,6 +29,29 @@ export function CountryGridWindow() {
   const countries = useSelector(selectCountries);
   const isFetching = useSelector(selectIsFetching);
   const fetchingError = useSelector(selectFetchingError);
+  const windowSize = useWindowSize();
+  const [columns, setColumns] = useState(0);
+
+  const breakpoints = {
+    b1: 400,
+    b2: 950,
+    b3: 1300,
+  };
+
+  console.log(columns);
+
+  useEffect(() => {
+    console.log(windowSize.width);
+    if (windowSize.width <= breakpoints.b1) {
+      setColumns(1);
+    } else if (windowSize.width <= breakpoints.b2) {
+      setColumns(2);
+    } else if (windowSize.width <= breakpoints.b3) {
+      setColumns(3);
+    } else {
+      setColumns(4);
+    }
+  }, [windowSize.width]);
 
   const GridContainer = (props) => {
     return (
@@ -69,7 +93,7 @@ export function CountryGridWindow() {
   }
 
   function getArrayIndexFromGridIndices(row, column) {
-    return row * 3 + column;
+    return row * (columns - 1) + column;
   }
 
   // useMemo or useCallBack for this
@@ -83,9 +107,9 @@ export function CountryGridWindow() {
           {({ height, width }) => (
             <Grid
               useIsScrolling={true}
-              columnCount={4}
+              columnCount={columns}
               columnWidth={300}
-              height={height}
+              height={1500}
               rowCount={95}
               rowHeight={400}
               width={width}
@@ -113,7 +137,7 @@ export function CountryGridWindow() {
                       justifyContent: "center",
                       alignItems: "center",
                       // left: style.left + GUTTER_SIZE,
-                      // top: style.top + GUTTER_SIZE,
+                      top: style.top + GUTTER_SIZE,
                       width: style.width - GUTTER_SIZE,
                       height: style.height - GUTTER_SIZE,
                     }}

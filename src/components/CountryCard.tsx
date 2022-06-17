@@ -14,6 +14,9 @@ const CardContainer = styled.div`
   text-decoration: none;
   filter: drop-shadow(3px 3px 3px ${({ theme }) => theme.shadow});
   height: 375px;
+
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 5000px;
 `;
 
 const Image = styled.div`

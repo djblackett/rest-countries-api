@@ -1,4 +1,10 @@
-import React, { Suspense } from "react";
+import React, {
+  Suspense,
+  useState,
+  useEffect,
+  useCallback,
+  useTransition,
+} from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { Link, useSearchParams } from "react-router-dom";
@@ -13,6 +19,19 @@ const CountryGrid = React.memo(() => {
   const countries = useSelector(selectCountries);
   const filter = useSelector(selectFilter);
   const region = useSelector(selectRegion);
+  const [page, setPage] = useState(0);
+  const [isPending, startTransition] = useTransition();
+
+  // const handleObserver = useCallback((entries) => {
+  //   const target = entries[0];
+  //   if (target.isIntersecting) {
+  //     setPage((prev) => prev + 1);
+  //     k;
+  //     startTransition(() => {
+  //       setShouldFetchImages(true);
+  //     });
+  //   }
+  // }, []);
 
   return (
     <CountryGridContainer>

@@ -12,7 +12,7 @@ import { selectColorMode } from "./features/colorMode/colorModeSlice";
 import { RouteObject, useRoutes } from "react-router-dom";
 import Layout from "./components/Layout";
 import { useAppDispatch } from "./features/app/hooks";
-// import { CountryGridWindow } from "./components/CountryGridWindow";
+import { CountryGridWindow } from "./components/CountryGridWindow";
 // import ToolBar from "./components/ToolBar";
 
 const CountryGrid = React.lazy(() => import("./components/CountryGrid"));
@@ -37,7 +37,7 @@ const App = React.memo(() => {
         {
           index: true,
           element: <CountryGrid />,
-          // element: <CountryGridWindow />,     Experimental feature for use with list/grid virtualization
+          // element: <CountryGridWindow />, //  Experimental feature for use with list/grid virtualization
         },
 
         {

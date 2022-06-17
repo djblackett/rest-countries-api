@@ -4,6 +4,7 @@
   "description": "![Design preview for the REST Countries API with color theme switcher coding challenge](./design/desktop-preview.jpg)",
   "main": "index.jsx",
   "dependencies": {
+    "react-virtualized-auto-sizer": "^1.0.6",
     "@reacticons/ionicons": "^6.0.2",
     "@reduxjs/toolkit": "^1.8.1",
     "normalize.css": "^8.0.1",
