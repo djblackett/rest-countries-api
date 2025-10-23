@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, Suspense } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../features/app/hooks";
 import { useNavigate, useParams } from "react-router-dom";
@@ -23,7 +23,6 @@ import { NoMatch } from "./NoMatch";
 import { CircleLoader } from "react-spinners";
 import IonIcon from "@reacticons/ionicons";
 import BorderCountries from "./BorderCountries";
-// const BorderCountries = React.lazy(() => import("./BorderCountries"));
 
 function numberWithCommas(x: number) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ", ");
@@ -32,16 +31,26 @@ function numberWithCommas(x: number) {
 export interface Country {
   name: string;
   nativeName: string;
-  numericCode: number;
-  languages: string[];
-  currencies: { name: string };
+  currencies: Array<{
+    code: string;
+    name: string;
+    symbol: string;
+  }>;
+  languages: Array<{
+    iso639_1: string;
+    iso639_2: string;
+    name: string;
+    nativeName: string;
+  }>;
   population: number;
   topLevelDomain: string[];
-  flags: { png: string };
+  flags: {
+    svg: string;
+    png: string;
+  };
   region: string;
-  subregion: string;
   capital: string;
-  borders?: string[];
+  borders: string[];
 }
 
 const CountryCardDetails = React.memo(() => {
@@ -142,7 +151,6 @@ const CountryCardDetails = React.memo(() => {
                 value={numberWithCommas(country.population)}
               />
               <CardInfoEntry text={"Region: "} value={country.region} />
-              <CardInfoEntry text={"Sub Region: "} value={country.subregion} />
               <CardInfoEntry text={"Capital: "} value={country.capital} />
             </InfoPane>
             <InfoPane>
@@ -154,9 +162,7 @@ const CountryCardDetails = React.memo(() => {
                 text={"Currencies: "}
                 value={
                   country.currencies
-                    ? Object.values(country.currencies)
-                        .map((x: any) => x.name)
-                        .join(",")
+                    ? country.currencies.map((x: any) => x.name).join(", ")
                     : ""
                 }
               />

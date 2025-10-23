@@ -1,6 +1,10 @@
-import { createSlice, createAsyncThunk, PayloadAction, createAction } from "@reduxjs/toolkit";
-import { AsyncThunkFulfilledActionCreator, AsyncThunkPendingActionCreator, AsyncThunkRejectedActionCreator } from "@reduxjs/toolkit/dist/createAsyncThunk";
-import {Country} from '../../components/CountryCardDetails'
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
+import {
+  AsyncThunkFulfilledActionCreator,
+  AsyncThunkPendingActionCreator,
+  AsyncThunkRejectedActionCreator,
+} from "@reduxjs/toolkit/dist/createAsyncThunk";
+import { Country } from "../../components/CountryCardDetails";
 import { RootState } from "../app/store";
 
 export const getCountries = createAsyncThunk<Country[]>(
@@ -13,7 +17,9 @@ export const getCountries = createAsyncThunk<Country[]>(
       return JSON.parse(savedCountries);
       // otherwise
     } else {
-      const response = await fetch("https://restcountries.com/v2/all?fields=name,nativeName,currencies,numericCode,languages,population,topLevelDomain,flags,region,subregion,capital,borders");
+      const response = await fetch(
+        "https://restcountries.com/v2/all?fields=name,nativeName,currencies,languages,population,topLevelDomain,flags,region,capital,borders"
+      );
       const json = await response.json();
 
       // localStorage.setItem("savedCountries", JSON.stringify(json));
@@ -28,20 +34,19 @@ export const getCountries = createAsyncThunk<Country[]>(
 
 createAction<Country[], "getCountries">("getCountries");
 
-
 interface Countries {
-    countries: Country[],
-    isFetching: boolean,
-    fetchingError: boolean,
-    isFulfilled: boolean,
+  countries: Country[];
+  isFetching: boolean;
+  fetchingError: boolean;
+  isFulfilled: boolean;
 }
 
 const initialState = {
-    countries: [],
-    isFetching: true,
-    fetchingError: false,
-    isFulfilled: false,
-  } as Countries;
+  countries: [],
+  isFetching: true,
+  fetchingError: false,
+  isFulfilled: false,
+} as Countries;
 
 const options = {
   name: "countries",
@@ -52,7 +57,19 @@ const options = {
     //   });
     // },
   },
-  extraReducers: (builder: { addCase: (arg0: AsyncThunkFulfilledActionCreator<Country[], void, unknown> | AsyncThunkPendingActionCreator<void, unknown> | AsyncThunkRejectedActionCreator<void, unknown>, arg1: { (state: any, action: any): void; (state: any, action: any): void; (state: any, action: any): void; }) => void; }) => {
+  extraReducers: (builder: {
+    addCase: (
+      arg0:
+        | AsyncThunkFulfilledActionCreator<Country[], void, unknown>
+        | AsyncThunkPendingActionCreator<void, unknown>
+        | AsyncThunkRejectedActionCreator<void, unknown>,
+      arg1: {
+        (state: any, action: any): void;
+        (state: any, action: any): void;
+        (state: any, action: any): void;
+      }
+    ) => void;
+  }) => {
     builder.addCase(getCountries.fulfilled, (state, action) => {
       state.isFetching = false;
       state.fetchingError = false;
@@ -68,15 +85,13 @@ const options = {
       state.fetchingError = true;
     });
   },
-}
-
+};
 
 const countriesSlice = createSlice(options);
 
 export const selectCountries = (state: RootState) => {
   return state.countries.countries;
 };
-
 
 export const selectIsFetching = (state: RootState) => {
   return state.countries.isFetching;

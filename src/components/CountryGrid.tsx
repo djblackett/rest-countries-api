@@ -13,6 +13,7 @@ import { CountryGridContainer } from "../css/CountryGridStyles";
 import SearchBar from "./SearchBar";
 import DropDown from "./DropDown";
 import { selectFilter, selectRegion } from "../features/filters/filtersSlice";
+import { Country } from "./CountryCardDetails";
 const CountryCard = React.lazy(() => import("./CountryCard"));
 
 const CountryGrid = React.memo(() => {
@@ -57,7 +58,7 @@ const CountryGrid = React.memo(() => {
         //   return region === regionName;
         // })
 
-        .filter((country: { name: string }) => {
+        .filter((country: Country) => {
           if (!filter) {
             return true;
           }
@@ -84,7 +85,7 @@ const CountryGrid = React.memo(() => {
               }}
             >
               <Suspense fallback={<CountryLoading />}>
-                <CountryCard country={country} key={country.numericCode} />
+                <CountryCard country={country} key={country.name} />
               </Suspense>
             </Link>
           );
